@@ -52,11 +52,21 @@ body {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: url('https://i.imgur.com/5Rj5H1v.png');
+  background: url("./stars.png");
   animation: moveStars 80s linear infinite;
   z-index: -2;
   opacity: 0.9;
 }
+  .twinkling {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url("./twinkling.png");
+  animation: moveTwinkle 200s linear infinite;
+  z-index: -1;
+  opacity: 0.5;
+}
+
 @keyframes moveStars {
   from { background-position: 0 0; }
   to { background-position: -3000px 3000px; }
