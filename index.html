@@ -256,26 +256,36 @@ button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,120,
   .result-section{padding:16px}
   .mode{padding:16px}
 }
-  /* スマホ用（画面幅が600px以下） */
+ /* スマホ用（画面幅が600px以下） */
 @media (max-width: 600px) {
 
   body {
-    font-size: 18px;   /* 全体の文字を大きくする */
+    font-size: 18px;
   }
 
   input, button {
-    font-size: 18px;   /* 入力欄とボタンも大きく */
+    font-size: 18px;
   }
 
-  .card {
-    width: 90%;        /* カードをスマホ幅に合わせる */
+  .home-card {
+    width: 100%;
+    max-width: 320px;
     margin: 10px auto;
     padding: 20px;
   }
 
-  h1, h2, h3 {
-    font-size: 24px;   /* タイトルも見やすく */
+  .mode {
+    padding: 20px;
   }
+
+  .result-section {
+    padding: 20px;
+  }
+
+  h1, h2, h3 {
+    font-size: 24px;
+  }
+}
 }
 
 </style>
