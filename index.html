@@ -256,6 +256,28 @@ button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,120,
   .result-section{padding:16px}
   .mode{padding:16px}
 }
+  /* スマホ用（画面幅が600px以下） */
+@media (max-width: 600px) {
+
+  body {
+    font-size: 18px;   /* 全体の文字を大きくする */
+  }
+
+  input, button {
+    font-size: 18px;   /* 入力欄とボタンも大きく */
+  }
+
+  .card {
+    width: 90%;        /* カードをスマホ幅に合わせる */
+    margin: 10px auto;
+    padding: 20px;
+  }
+
+  h1, h2, h3 {
+    font-size: 24px;   /* タイトルも見やすく */
+  }
+}
+
 </style>
 </head>
 <body>
