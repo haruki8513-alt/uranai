@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>診断アプリ｜占い・性格・恋愛・仕事・相性</title>
+
+<!-- 画像保存用ライブラリ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+/* ---------- 基本 ---------- */
+:root{
+  --accent1: #ff88cc;
+  --accent2: #ff66bb;
+  --glass: rgba(255,255,255,0.12);
+}
+*{box-sizing:border-box}
+body {
+  margin: 0;
+  font-family: "Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  background: linear-gradient(180deg,#07102a 0%, #0b0f2f 60%);
+  color: #fff;
+  overflow-x: hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* ---------- 星・背景 ---------- */
+#star-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -3;
+  overflow: hidden;
+}
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.9;
+  animation: floatStar 12s linear infinite;
+  transform: translateZ(0);
+}
+@keyframes floatStar {
+  from { transform: translateY(0px) scale(1); opacity: 1; }
+  to { transform: translateY(-220px) scale(0.8); opacity: 0; }
+}
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: url('https://i.imgur.com/5Rj5H1v.png');
+  animation: moveStars 80s linear infinite;
+  z-index: -2;
+  opacity: 0.9;
+}
+@keyframes moveStars {
+  from { background-position: 0 0; }
+  to { background-position: -3000px 3000px; }
+}
+
+/* タイプ背景 */
+#typeBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.28;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(6px) saturate(1.05);
+}
+
+/* ---------- ヘッダー ---------- */
+h1 {
+  text-align: center;
+  margin-top: 22px;
+  font-size: 34px;
+  letter-spacing: 1px;
+  text-shadow: 0 0 18px rgba(255,140,190,0.25);
+  color: #fff;
+}
+
+/* ---------- コンテナ ---------- */
+#home-screen {
+  animation: fadeIn 0.8s ease;
+  background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  padding: 28px;
+  border-radius: 20px;
+  width: 92%;
+  max-width: 980px;
+  margin: 18px auto 60px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------- ホームカード（強化） ---------- */
+.home-card {
+  width: 250px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));
+  color: #333;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 4px 12px rgba(255,255,255,0.06) inset;
+  cursor: pointer;
+  transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.6);
+  backdrop-filter: blur(6px);
+}
+.home-card h3{ font-size:20px; margin:0 0 8px; }
+.home-card p{ margin:0; font-size:13px; color:#666; }
+.home-card::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -40%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,200,230,0.12), transparent 10%),
+              radial-gradient(circle at 70% 70%, rgba(200,240,255,0.06), transparent 10%);
+  transform: rotate(12deg);
+  transition: transform .6s;
+  pointer-events: none;
+}
+.home-card:hover::after { transform: rotate(0deg) translateY(-6px); }
+.home-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+}
+
+/* ---------- モードフォーム ---------- */
+.mode {
+  max-width: 560px;
+  margin: 20px auto;
+  display: none;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+label { display:block; margin-top:12px; font-size:14px; color:#f7f7f7; }
+input, select {
+  width:100%;
+  padding:10px;
+  margin-top:6px;
+  border-radius:10px;
+  border:none;
+  background:#ffffffee;
+  color:#333;
+  font-size:14px;
+}
+
+/* ---------- ボタン ---------- */
+button {
+  padding: 10px 22px;
+  margin-top: 18px;
+  font-size: 15px;
+  border-radius: 25px;
+  border: none;
+  background: linear-gradient(135deg,var(--accent1),var(--accent2));
+  color: #fff;
+  transition: transform .18s, box-shadow .18s;
+  cursor: pointer;
+}
+button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,120,180,0.12); }
+
+/* 戻るボタン */
+.back-btn {
+  margin-top: 12px;
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  color: #333;
+  font-size: 14px;
+}
+.back-btn:hover { background:#fff; transform: translateY(-3px); }
+
+/* SNS共有ボタン */
+.share-btn {
+  margin-top: 12px;
+  padding: 10px 18px;
+  border-radius: 22px;
+  background: #1da1f2;
+  color: #fff;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+.share-btn:hover { background: #0d8ae6; }
+
+/* ---------- 結果カード（プロ級） ---------- */
+.result-section {
+  background: rgba(255,255,255,0.88);
+  color: #333;
+  padding: 22px;
+  margin-top: 18px;
+  border-radius: 18px;
+  animation: fadeIn 0.5s ease;
+  border: 1px solid rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.45), 0 0 30px rgba(255,150,200,0.06) inset;
+}
+.result-section p:first-child {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px rgba(255,150,200,0.35);
+}
+.type-bright { border-left: 8px solid #ffcc00; }
+.type-calm   { border-left: 8px solid #66ccff; }
+.type-my     { border-left: 8px solid #99cc66; }
+.type-unique { border-left: 8px solid #ff6699; }
+
+/* ---------- モードタイトル ---------- */
+.mode h2 {
+  text-align: center;
+  font-size: 26px;
+  margin-bottom: 14px;
+  text-shadow: 0 0 12px rgba(255,150,200,0.18);
+  border-bottom: 2px solid rgba(255,150,200,0.06);
+  padding-bottom: 10px;
+}
+
+/* ---------- レスポンシブ ---------- */
+@media (max-width: 880px){
+  .home-card{ width: 45%; }
+}
+@media (max-width:480px){
+  h1{font-size:24px;}
+  .home-card{width:100%;max-width:320px;}
+  .result-section{padding:16px}
+  .mode{padding:16px}
+}
+</style>
+</head>
+<body>
+
+<div id="star-container"></div>
+<div class="stars"></div>
+<div id="typeBackground"></div>
+
+<h1>診断アプリ</h1>
+
+<!-- ホーム -->
+<div id="home-screen">
+
+  <!-- 今日の運勢 -->
+  <div id="today-fortune"></div>
+
+  <h2 style="text-align:center;margin-bottom:20px;">診断メニュー</h2>
+  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:15px;">
+    <div class="home-card" onclick="openMode('uranai-mode')">
+      <h3>🔮 占い</h3><p>星座×血液型で今日の運勢</p>
+    </div>
+    <div class="home-card" onclick="openMode('seikaku-mode')">
+      <h3>🧠 性格診断</h3><p>10問でタイプ診断</p>
+    </div>
+    <div class="home-card" onclick="openMode('love-type-mode')">
+      <h3>❤️ 恋愛タイプ診断</h3><p>恋愛の傾向をチェック</p>
+    </div>
+    <div class="home-card" onclick="openMode('love-match-mode')">
+      <h3>💑 恋愛相性診断</h3><p>2人の相性％</p>
+    </div>
+    <div class="home-card" onclick="openMode('work-mode')">
+      <h3>💼 仕事タイプ診断</h3><p>向いてる働き方</p>
+    </div>
+    <div class="home-card" onclick="openMode('friend-mode')">
+      <h3>👭 友達相性診断</h3><p>友達との相性</p>
+    </div>
+    <div class="home-card" onclick="openMode('stress-mode')">
+      <h3>🌧 ストレス診断</h3><p>今のストレス度</p>
+    </div>
+    <div class="home-card" onclick="openMode('mental-mode')">
+      <h3>🌙 メンタル診断</h3><p>心の状態チェック</p>
+    </div>
+  </div>
+</div>
+
+<!-- 占い -->
+<div id="uranai-mode" class="mode">
+  <h2>🔮 占い</h2>
+  <label>名前</label><input id="name" type="text" placeholder="あなたの名前">
+  <label>星座</label>
+  <select id="seiza">
+    <option>おひつじ座</option><option>おうし座</option><option>ふたご座</option>
+    <option>かに座</option><option>しし座</option><option>おとめ座</option>
+    <option>てんびん座</option><option>さそり座</option><option>いて座</option>
+    <option>やぎ座</option><option>みずがめ座</option><option>うお座</option>
+  </select>
+  <label>血液型</label>
+  <select id="blood">
+    <option>A</option><option>B</option><option>O</option><option>AB</option>
+  </select>
+  <button onclick="uranai()">占う</button>
+  <div id="uranai-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<!-- 性格診断 -->
+<div id="seikaku-mode" class="mode">
+  <h2>🧠 性格診断</h2>
+  <label>① 休みの日は？</label>
+  <select id="sq1">
+    <option value="1">家でゆっくり</option>
+    <option value="2">外で遊ぶ</option>
+    <option value="3">ひとりで集中</option>
+    <option value="4">誰かと一緒</option>
+  </select>
+  <label>② 友達から言われることは？</label>
+  <select id="sq2">
+    <option value="1">明るい</option><option value="2">落ち着いてる</option>
+    <option value="3">マイペース</option><option value="4">個性的</option>
+  </select>
+  <label>③ 好きなペースは？</label>
+  <select id="sq3">
+    <option value="1">早い</option><option value="2">普通</option>
+    <option value="3">ゆっくり</option><option value="4">気分次第</option>
+  </select>
+  <label>④ 初対面の人と話すときは？</label>
+  <select id="sq4">
+    <option value="1">緊張する</option><option value="2">普通に話せる</option>
+    <option value="3">あまり話さない</option><option value="4">すぐ仲良くなる</option>
+  </select>
+  <label>⑤ 好きな環境は？</label>
+  <select id="sq5">
+    <option value="1">静かな場所</option><option value="2">落ち着いた場所</option>
+    <option value="3">自分のペースで動ける場所</option><option value="4">にぎやかな場所</option>
+  </select>
+  <label>⑥ ストレスを感じたときは？</label>
+  <select id="sq6">
+    <option value="1">ひとりで落ち着く</option><option value="2">誰かに相談する</option>
+    <option value="3">気分転換する</option><option value="4">すぐ行動する</option>
+  </select>
+  <label>⑦ 集中力は？</label>
+  <select id="sq7">
+    <option value="1">長く続く</option><option value="2">普通</option>
+    <option value="3">短い</option><option value="4">気分で変わる</option>
+  </select>
+  <label>⑧ 人と話すのは？</label>
+  <select id="sq8">
+    <option value="1">苦手</option><option value="2">普通</option>
+    <option value="3">好き</option><option value="4">めちゃくちゃ好き</option>
+  </select>
+  <label>⑨ 朝は？</label>
+  <select id="sq9">
+    <option value="1">ゆっくりしたい</option><option value="2">普通</option>
+    <option value="3">すぐ動ける</option><option value="4">テンション高い</option>
+  </select>
+  <label>⑩ 自分を一言で言うなら？</label>
+  <select id="sq10">
+    <option value="1">慎重</option><option value="2">安定</option>
+    <option value="3">自由</option><option value="4">情熱</option>
+  </select>
+
+  <button onclick="seikakuResult()">診断する</button>
+  <div id="seikaku-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<!-- 恋愛タイプ診断 -->
+<div id="love-type-mode" class="mode">
+  <h2>❤️ 恋愛タイプ診断</h2>
+
+  <label>① 好きになると一途なタイプだと思う</label>
+  <select id="l1"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>② 相手の気持ちを考えすぎることがある</label>
+  <select id="l2"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>③ 恋愛では慎重になりやすい</label>
+  <select id="l3"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>④ 好きになるとすぐ行動したくなる</label>
+  <select id="l4"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑤ 相手に合わせすぎてしまうことがある</label>
+  <select id="l5"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑥ 恋愛で不安になりやすい</label>
+  <select id="l6"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑦ 好きな人には積極的に話しかける</label>
+  <select id="l7"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑧ 恋愛では相手に求めるものが多い</label>
+  <select id="l8"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑨ 恋愛が長続きしやすい</label>
+  <select id="l9"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑩ 恋愛で自分を出しやすい</label>
+  <select id="l10"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <button onclick="loveTypeResult()">診断する</button>
+  <div id="love-type-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<!-- 恋愛相性診断 -->
+<div id="love-match-mode" class="mode">
+  <h2>💑 恋愛相性診断</h2>
+  <label>あなたの名前</label><input id="lm_you" type="text">
+  <label>相手の名前</label><input id="lm_partner" type="text">
+  <label>あなたの誕生日</label><input id="lm_you_bd" type="date">
+  <label>相手の誕生日</label><input id="lm_partner_bd" type="date">
+  <button onclick="loveMatchResult()">診断する</button>
+  <div id="love-match-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<!-- 仕事タイプ診断 -->
+<div id="work-mode" class="mode">
+  <h2>💼 仕事タイプ診断</h2>
+
+  <label>① チームで働くのが好き</label>
+  <select id="w1"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>② 責任のある仕事を任されたい</label>
+  <select id="w2"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>③ 新しいことに挑戦するのが好き</label>
+  <select id="w3"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>④ 安定した環境で働きたい</label>
+  <select id="w4"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑤ 自由に動ける仕事が向いていると思う</label>
+  <select id="w5"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑥ 人と話す仕事が苦ではない</label>
+  <select id="w6"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑦ ひとりで集中する時間が好き</label>
+  <select id="w7"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑧ 成果を出すと嬉しい</label>
+  <select id="w8"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑨ ルールより効率を重視する</label>
+  <select id="w9"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑩ 仕事は楽しくないと続かない</label>
+  <select id="w10"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <button onclick="workResult()">診断する</button>
+  <div id="work-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<!-- 友達相性診断 -->
+<div id="friend-mode" class="mode">
+  <h2>👭 友達との相性診断</h2>
+
+  <label>① 一緒にいると落ち着く</label>
+  <select id="f1"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>② 話が自然と続く</label>
+  <select id="f2"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>③ 趣味が似ている</label>
+  <select id="f3"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>④ 気を使わずに話せる</label>
+  <select id="f4"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑤ 一緒にいると楽しい</label>
+  <select id="f5"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑥ 悩みを相談しやすい</label>
+  <select id="f6"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑦ 相手の気持ちを理解しやすい</label>
+  <select id="f7"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑧ ケンカしてもすぐ仲直りできる</label>
+  <select id="f8"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑨ 一緒にいる時間があっという間</label>
+  <select id="f9"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑩ 長く付き合えると思う</label>
+  <select id="f10"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <button onclick="friendResult()">診断する</button>
+  <div id="friend-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<!-- ストレス診断 -->
+<div id="stress-mode" class="mode">
+  <h2>😵 ストレス診断</h2>
+
+  <label>① 最近疲れが取れにくい</label>
+  <select id="s1"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>② 朝起きてもやる気が出ない</label>
+  <select id="s2"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>③ 眠りが浅い</label>
+  <select id="s3"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>④ 食欲が変わった</label>
+  <select id="s4"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑤ イライラしやすい</label>
+  <select id="s5"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑥ 集中力が続かない</label>
+  <select id="s6"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑦ 人と話すのがしんどい</label>
+  <select id="s7"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑧ 不安になりやすい</label>
+  <select id="s8"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑨ 休んでも回復しにくい</label>
+  <select id="s9"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑩ 自分を責めてしまう</label>
+  <select id="s10"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <button onclick="stressResult()">診断する</button>
+  <div id="stress-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<!-- メンタル診断 -->
+<div id="mental-mode" class="mode">
+  <h2>🌙 メンタル診断</h2>
+
+  <label>① 気分が落ち込みやすい</label>
+  <select id="m1"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>② やる気が出ない</label>
+  <select id="m2"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>③ 自信が持てない</label>
+  <select id="m3"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>④ 未来が不安</label>
+  <select id="m4"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑤ 人と話すのが負担</label>
+  <select id="m5"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑥ 楽しいと感じる瞬間が減った</label>
+  <select id="m6"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑦ 疲れやすい</label>
+  <select id="m7"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑧ 悪い方向に考えやすい</label>
+  <select id="m8"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑨ 眠っても回復しにくい</label>
+  <select id="m9"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <label>⑩ 涙が出そうになることがある</label>
+  <select id="m10"><option value="1">はい</option><option value="0">いいえ</option></select>
+
+  <button onclick="mentalResult()">診断する</button>
+  <div id="mental-result"></div>
+  <button onclick="backHome()" class="back-btn">ホームに戻る</button>
+</div>
+
+<script>
+/* ---------------------------
+   共通ユーティリティ / 初期処理（強化版）
+   --------------------------- */
+
+/* 動く星生成（色付き・増量で幻想的に） */
+function createStars(){
+  const c=document.getElementById("star-container");
+  if(!c) return;
+  c.innerHTML = "";
+  const colors=["#ffffff","#ffe6ff","#ccf2ff","#fff5e6"];
+  const count = 120;
+  for(let i=0;i<count;i++){
+    const s=document.createElement("div");
+    s.classList.add("star");
+    s.style.left = Math.random()*100 + "%";
+    s.style.top = Math.random()*100 + "%";
+    s.style.background = colors[Math.floor(Math.random()*colors.length)];
+    s.style.animationDelay = (Math.random()*8) + "s";
+    s.style.opacity = (0.4 + Math.random()*0.9).toString();
+    s.style.transform = `scale(${0.6 + Math.random()*1.2})`;
+    c.appendChild(s);
+  }
+}
+createStars();
+
+/* モード切り替え */
+function openMode(id){
+  const home = document.getElementById("home-screen");
+  if(home) home.style.display = "none";
+  const modes = document.getElementsByClassName("mode");
+  for(let m of modes){ m.style.display = "none"; }
+  const el = document.getElementById(id);
+  if(el) el.style.display = "block";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function backHome(){
+  const modes=document.getElementsByClassName("mode");
+  for(let m of modes){ m.style.display="none"; }
+  const home=document.getElementById("home-screen");
+  if(home) home.style.display="block";
+  const tb=document.getElementById("typeBackground");
+  if(tb) tb.style.backgroundImage="";
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* 結果表示にシェア・保存ボタンを付ける共通関数 */
+function renderResultWithActions(containerId, htmlContent){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  container.innerHTML = htmlContent;
+  const shareBtn = document.createElement("button");
+  shareBtn.className = "share-btn";
+  shareBtn.textContent = "結果をシェアする";
+  shareBtn.onclick = () => shareResult(containerId);
+  const saveBtn = document.createElement("button");
+  saveBtn.className = "share-btn";
+  saveBtn.style.background = "linear-gradient(135deg,#ff88cc,#ff66bb)";
+  saveBtn.textContent = "画像で保存する";
+  saveBtn.onclick = () => saveImage(containerId);
+  const wrap = document.createElement("div");
+  wrap.style.display = "flex";
+  wrap.style.gap = "10px";
+  wrap.style.marginTop = "12px";
+  wrap.appendChild(shareBtn);
+  wrap.appendChild(saveBtn);
+  container.appendChild(wrap);
+}
+
+/* シェア（Twitter） */
+function shareResult(containerId){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  const text = container.innerText.replace(/\s{2,}/g," ").trim();
+  const siteUrl = "https://haruki8513-alt.github.io/uranai-app/"; // 公開後にここにサイトURLを入れてください（例: https://your-site.example）
+  const tweet = text + (siteUrl ? ("\n" + siteUrl) : "");
+  const url = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(tweet);
+  window.open(url, "_blank");
+}
+
+/* 画像保存（html2canvas） */
+function saveImage(containerId){
+  const container = document.getElementById(containerId);
+  if(!container) return;
+  const target = container.querySelector('.result-section') || container;
+  const originalBg = target.style.background;
+  // 一時的に白背景で保存（見栄え重視）
+  target.style.background = "#ffffff";
+  html2canvas(target, {scale:2, useCORS:true}).then(canvas => {
+    const link = document.createElement('a');
+    link.download = "診断結果.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+    target.style.background = originalBg;
+  }).catch(err=>{
+    console.error(err);
+    target.style.background = originalBg;
+    alert("画像の保存に失敗しました。ブラウザの設定を確認してください。");
+  });
+}
+
+/* ---------- 診断ロジック（結果にアイコン・背景を追加） ---------- */
+
+/* 占い */
+function uranai(){
+  const name=document.getElementById("name").value||"あなた";
+  const seiza=document.getElementById("seiza").value;
+  const blood=document.getElementById("blood").value;
+  const luck=["最高！","とても良い","良い","普通","注意","悪い"];
+  const love=["積極的にいくと◎","自然体でOK","相手の気持ちを大事に","慎重にいこう","今日は控えめに"];
+  const work=["集中力が高い日","新しい挑戦が吉","周りと協力すると◎","無理は禁物","休む勇気も大事"];
+  const money=["買い物運◎","節約が吉","投資は慎重に","衝動買い注意","今日は貯める日"];
+  const colors=["赤","青","黄色","緑","紫","白","黒","ピンク"];
+  const items=["スマホ","ハンカチ","アクセサリー","飲み物","本","イヤホン","財布","時計"];
+  const advice=[
+    "新しいことを始めると運気アップ！",
+    "周りの人に優しくすると良い日。",
+    "自分のペースを大事にしてOK。",
+    "焦らずゆっくり進めると吉。",
+    "笑顔で過ごすと運気が上がるよ。"
+  ];
+  const seizaInfo={
+    "おひつじ座":"行動力があり、勢いのある性格。",
+    "おうし座":"落ち着いていて、安定感がある。",
+    "ふたご座":"好奇心旺盛でコミュ力が高い。",
+    "かに座":"優しくて思いやりがある。",
+    "しし座":"自信家で華やかなタイプ。",
+    "おとめ座":"几帳面で丁寧な性格。",
+    "てんびん座":"バランス感覚が良くて器用。",
+    "さそり座":"情熱的で一途。",
+    "いて座":"自由で明るい性格。",
+    "やぎ座":"努力家で真面目。",
+    "みずがめ座":"個性的で発想力がある。",
+    "うお座":"優しくて感受性が豊か。"
+  };
+  const icon = "🔮";
+  const html = `
+    <div class="result-section type-bright">
+      <p>${icon} <b>${name}</b> さん（${seiza} × ${blood}型）</p>
+      <p><b>■ 総合運</b><br>${luck[Math.floor(Math.random()*luck.length)]}</p>
+      <p><b>■ 恋愛運</b><br>${love[Math.floor(Math.random()*love.length)]}</p>
+      <p><b>■ 仕事運</b><br>${work[Math.floor(Math.random()*work.length)]}</p>
+      <p><b>■ 金運</b><br>${money[Math.floor(Math.random()*money.length)]}</p>
+      <p><b>■ ラッキーカラー</b><br>${colors[Math.floor(Math.random()*colors.length)]}</p>
+      <p><b>■ ラッキーアイテム</b><br>${items[Math.floor(Math.random()*items.length)]}</p>
+      <p><b>■ 今日のアドバイス</b><br>${advice[Math.floor(Math.random()*advice.length)]}</p>
+      <p><b>■ ${seiza}の性格</b><br>${seizaInfo[seiza]}</p>
+    </div>`;
+  renderResultWithActions("uranai-result", html);
+}
+
+/* 性格診断 */
+function seikakuResult(){
+  let bright=0,calm=0,my=0,uniq=0;
+  const ids=["sq1","sq2","sq3","sq4","sq5","sq6","sq7","sq8","sq9","sq10"];
+  ids.forEach(id=>{
+    const v=Number(document.getElementById(id).value);
+    if(v===1){calm+=2;my+=1;}
+    if(v===2){calm+=1;}
+    if(v===3){my+=2;uniq+=1;}
+    if(v===4){bright+=2;uniq+=2;}
+  });
+  const max=Math.max(bright,calm,my,uniq);
+  let type,detail,colorClass,bg,icon;
+  if(max===bright){
+    type="明るいタイプ";
+    detail="行動力があり、周りを元気にするムードメーカー。";
+    colorClass="type-bright"; bg="https://i.imgur.com/8YQGQfM.jpeg"; icon="☀️";
+  }else if(max===calm){
+    type="落ち着きタイプ";
+    detail="冷静で優しく、安定感のある性格。";
+    colorClass="type-calm"; bg="https://i.imgur.com/3mQeX9u.jpeg"; icon="🌙";
+  }else if(max===my){
+    type="マイペースタイプ";
+    detail="自分の世界があり、のんびりした性格。";
+    colorClass="type-my"; bg="https://i.imgur.com/0rYx8gP.jpeg"; icon="🐢";
+  }else{
+    type="個性派タイプ";
+    detail="独創的でアイデアマン。好きなことに一直線。";
+    colorClass="type-unique"; bg="https://i.imgur.com/4z5Xk7P.jpeg"; icon="⭐";
+  }
+  const html = `
+    <div class="result-section ${colorClass}">
+      <p><b>${icon} あなたは「${type}」です。</b></p>
+      <p>${detail}</p>
+    </div>`;
+  renderResultWithActions("seikaku-result", html);
+  const tb=document.getElementById("typeBackground");
+  if(tb) tb.style.backgroundImage = `url('${bg}')`;
+}
+
+/* 恋愛タイプ診断 */
+function loveTypeResult(){
+  let score = 0;
+  for (let i = 1; i <= 10; i++) {
+    const el = document.getElementById("l" + i);
+    if(el) score += Number(el.value);
+  }
+  let type,desc,icon;
+  if(score <= 3){ type="慎重派"; desc="相手の気持ちを大事にしながら、ゆっくり進めたい恋愛タイプです。"; icon="🛡️"; }
+  else if(score <= 6){ type="安定派"; desc="安心感や安定した関係を大事にする恋愛タイプです。"; icon="🤝"; }
+  else if(score <= 8){ type="自由派"; desc="楽しく、明るく、自由な恋愛を好むタイプです。"; icon="🎈"; }
+  else{ type="情熱派"; desc="好きになったら一直線。気持ちをしっかり伝える恋愛タイプです。"; icon="🔥"; }
+  const html = `
+    <div class="result-section type-bright">
+      <p><b>${icon} あなたの恋愛タイプ：${type}</b></p>
+      <p>${desc}</p>
+    </div>`;
+  renderResultWithActions("love-type-result", html);
+}
+
+/* 恋愛相性診断 */
+function loveMatchResult(){
+  const you=document.getElementById("lm_you").value||"あなた";
+  const p=document.getElementById("lm_partner").value||"相手";
+  const bd1=document.getElementById("lm_you_bd").value;
+  const bd2=document.getElementById("lm_partner_bd").value;
+  let base=50;
+  if(bd1&&bd2){
+    const d1=new Date(bd1),d2=new Date(bd2);
+    const diff=Math.abs(d1-d2)/(1000*60*60*24);
+    base=70-Math.min(diff,50)/2;
+  }
+  const rand=Math.floor(Math.random()*20)-10;
+  let score=Math.max(0,Math.min(100,Math.round(base+rand)));
+  let msg,icon;
+  if(score>=80){ msg="とても相性が良い組み合わせ。お互いを支え合える関係になりやすいです。"; icon="💖"; }
+  else if(score>=60){ msg="良い相性。少しの工夫で長続きしやすい関係です。"; icon="💞"; }
+  else if(score>=40){ msg="普通の相性。価値観の違いを話し合えると◎。"; icon="🤝"; }
+  else{ msg="少しすれ違いやすい相性。ペースを合わせる意識が大事です。"; icon="⚠️"; }
+  const html = `
+    <div class="result-section type-calm">
+      <p><b>${icon} ${you} さんと ${p} さんの恋愛相性は…</b></p>
+      <p style="font-size:24px;"><b>${score}%</b></p>
+      <p>${msg}</p>
+    </div>`;
+  renderResultWithActions("love-match-result", html);
+}
+
+/* 仕事タイプ診断 */
+function workResult(){
+  let score = 0;
+  for (let i = 1; i <= 10; i++) {
+    const el = document.getElementById("w" + i);
+    if(el) score += Number(el.value);
+  }
+  let type,desc,icon;
+  if(score <= 3){ type="安定志向タイプ"; desc="安定した環境でコツコツ続ける仕事が向いています。"; icon="🏢"; }
+  else if(score <= 6){ type="バランス型"; desc="安定と挑戦のバランスを取りながら働くタイプ。"; icon="⚖️"; }
+  else if(score <= 8){ type="チャレンジタイプ"; desc="新しいことに挑戦する仕事が向いています。"; icon="🚀"; }
+  else{ type="自由クリエイタータイプ"; desc="自由度の高い働き方が向いています。"; icon="🎨"; }
+  const html = `
+    <div class="result-section type-my">
+      <p><b>${icon} あなたの仕事タイプ：${type}</b></p>
+      <p>${desc}</p>
+    </div>`;
+  renderResultWithActions("work-result", html);
+}
+
+/* 友達相性診断 */
+function friendResult(){
+  let score = 0;
+  for (let i = 1; i <= 10; i++) {
+    const el = document.getElementById("f" + i);
+    if(el) score += Number(el.value);
+  }
+  let msg,icon;
+  if(score <= 3){ msg="落ち着いた関係で、ゆっくり仲良くなるタイプの相性です。"; icon="🌿"; }
+  else if(score <= 6){ msg="自然体で心地よい友達関係。無理なく一緒にいられる相性です。"; icon="😊"; }
+  else if(score <= 8){ msg="一緒にいて楽しく、相性の良い友達です。思い出も増えやすい関係。"; icon="🎉"; }
+  else{ msg="最高レベルの相性！長く続く、安心できる関係になりやすいです。"; icon="💫"; }
+  const html = `
+    <div class="result-section type-unique">
+      <p><b>${icon} 友達との相性：</b></p>
+      <p>${msg}</p>
+    </div>`;
+  renderResultWithActions("friend-result", html);
+}
+
+/* ストレス診断 */
+function stressResult(){
+  let score = 0;
+  for (let i = 1; i <= 10; i++) {
+    const el = document.getElementById("s" + i);
+    if(el) score += Number(el.value);
+  }
+  let level,msg,icon;
+  if(score <= 3){ level="低め"; msg="今のところ大きなストレスは少なそう。今のペースを大事にしてね。"; icon="🌤️"; }
+  else if(score <= 6){ level="中くらい"; msg="少し疲れがたまり気味。休む時間や好きなことの時間を意識して取ろう。"; icon="☁️"; }
+  else if(score <= 8){ level="高め"; msg="ストレスがたまりやすい状態かも。誰かに話したり、環境を少し変えるのも◎。"; icon="⚠️"; }
+  else{ level="かなり高い"; msg="かなりしんどい状態かも。無理しないで、休むことを最優先にしてね。"; icon="🚨"; }
+  const html = `
+    <div class="result-section type-calm">
+      <p><b>${icon} ストレスレベル：${level}</b></p>
+      <p>${msg}</p>
+    </div>`;
+  renderResultWithActions("stress-result", html);
+}
+
+/* メンタル診断 */
+function mentalResult(){
+  let score = 0;
+  for (let i = 1; i <= 10; i++) {
+    const el = document.getElementById("m" + i);
+    if(el) score += Number(el.value);
+  }
+  let state,msg,icon;
+  if(score <= 3){ state="安定している"; msg="今のあなたの心は比較的安定しているみたい。自分のペースを大事にしてね。"; icon="🌱"; }
+  else if(score <= 6){ state="少し揺れやすい"; msg="少し気分の波があるかも。無理せず、安心できる人や場所を大事にしてね。"; icon="🌤️"; }
+  else if(score <= 8){ state="不安定気味"; msg="しんどさを抱えやすい状態かも。信頼できる人に話したり、休む時間を増やしてね。"; icon="⚠️"; }
+  else{ state="かなりしんどい"; msg="かなりつらい状態かもしれない。ひとりで抱え込まず、身近な人や専門家に相談してね。"; icon="🚨"; }
+  const html = `
+    <div class="result-section type-unique">
+      <p><b>${icon} 今のメンタル状態：${state}</b></p>
+      <p>${msg}</p>
+    </div>`;
+  renderResultWithActions("mental-result", html);
+}
+
+/* 今日の運勢（ホームに表示） */
+function todayFortune(){
+  const luck = ["最高！", "とても良い", "良い", "普通", "注意", "悪い"];
+  const advice = [
+    "新しいことを始めると運気アップ！",
+    "周りの人に優しくすると良い日。",
+    "自分のペースを大事にしてOK。",
+    "焦らずゆっくり進めると吉。",
+    "笑顔で過ごすと運気が上がるよ。"
+  ];
+  const color = ["赤","青","黄色","緑","紫","白","黒","ピンク"];
+  const html = `
+    <div class="result-section type-bright">
+      <p><b>今日の運勢</b></p>
+      <p>総合運：${luck[Math.floor(Math.random()*luck.length)]}</p>
+      <p>ラッキーカラー：${color[Math.floor(Math.random()*color.length)]}</p>
+      <p>アドバイス：${advice[Math.floor(Math.random()*advice.length)]}</p>
+    </div>`;
+  const el = document.getElementById("today-fortune");
+  if(el) el.innerHTML = html;
+}
+
+/* 初期表示 */
+todayFortune();
+backHome();
+</script>
+
+</body>
+</html>
