@@ -192,6 +192,19 @@ h1 {
     line-height: 1.8;
     white-space: normal;
   }
+  .menu-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.home-card {
+  width: 48%;
+  max-width: none;
+  margin: 10px 0;
+}
+
 }
 
 </style>
@@ -216,7 +229,8 @@ h1 {
   <div id="today-fortune"></div>
 
   <h2 style="text-align:center;margin-bottom:20px;">診断メニュー</h2>
-  <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:15px;">
+ <div class="menu-wrap">
+
     <div class="home-card" onclick="openMode('uranai-mode')">
       <h3>🔮 占い</h3><p>星座×血液型で今日の運勢</p>
     </div>
