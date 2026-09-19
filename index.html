@@ -483,11 +483,14 @@ body {
   <div id="mental-result"></div>
 
   <button onclick="backHome()">ホームに戻る</button>
+<!-- 🌙 メンタル診断フォームの終わり -->
 </div>
 
+<!-- ⭐⭐⭐ ここから下をそのまま貼る（全部の script） ⭐⭐⭐ -->
 <script>
 // 画面切り替え
 function openMode(id){
+  document.getElementById('home-screen').style.display = 'none';
   document.querySelectorAll('.mode').forEach(m => m.style.display = 'none');
   document.getElementById(id).style.display = 'block';
   window.scrollTo(0,0);
@@ -495,10 +498,11 @@ function openMode(id){
 
 function backHome(){
   document.querySelectorAll('.mode').forEach(m => m.style.display = 'none');
+  document.getElementById('home-screen').style.display = 'block';
   window.scrollTo(0,0);
 }
 
-// 🔮 占い
+/* 🔮 占い */
 function uranai(){
   const name = document.getElementById("name").value;
   const seiza = document.getElementById("seiza").value;
@@ -517,7 +521,7 @@ function uranai(){
   `;
 }
 
-// 🧠 性格診断
+/* 🧠 性格診断 */
 function seikakuResult(){
   let total = 0;
   for(let i=1;i<=10;i++){
@@ -538,7 +542,7 @@ function seikakuResult(){
   `;
 }
 
-// ❤️ 恋愛タイプ診断
+/* ❤️ 恋愛タイプ診断 */
 function loveTypeResult(){
   let total = 0;
   for(let i=1;i<=10;i++){
@@ -559,12 +563,12 @@ function loveTypeResult(){
   `;
 }
 
-// 💑 恋愛相性診断
+/* 💑 恋愛相性診断 */
 function loveMatchResult(){
   const you = document.getElementById("lm_you").value;
   const partner = document.getElementById("lm_partner").value;
 
-  const percent = Math.floor(Math.random()*41)+60; // 60〜100%
+  const percent = Math.floor(Math.random()*41)+60;
 
   document.getElementById("love-match-result").innerHTML = `
     <div class="result-section">
@@ -574,7 +578,7 @@ function loveMatchResult(){
   `;
 }
 
-// 💼 仕事タイプ診断
+/* 💼 仕事タイプ診断 */
 function workResult(){
   let total = 0;
   for(let i=1;i<=10;i++){
@@ -595,7 +599,7 @@ function workResult(){
   `;
 }
 
-// 👭 友達相性診断
+/* 👭 友達相性診断 */
 function friendResult(){
   let total = 0;
   for(let i=1;i<=10;i++){
@@ -612,7 +616,7 @@ function friendResult(){
   `;
 }
 
-// 😵 ストレス診断
+/* 😵 ストレス診断 */
 function stressResult(){
   let total = 0;
   for(let i=1;i<=9;i++){
@@ -633,7 +637,7 @@ function stressResult(){
   `;
 }
 
-// 🌙 メンタル診断
+/* 🌙 メンタル診断 */
 function mentalResult(){
   let total = 0;
   for(let i=1;i<=5;i++){
@@ -653,35 +657,7 @@ function mentalResult(){
     </div>
   `;
 }
-  
-<script>
-function openMode(id){
-  // 全ての診断モードを非表示
-  document.querySelectorAll('.mode').forEach(m => m.style.display = 'none');
-
-  // ホーム画面を非表示
-  document.getElementById('home-screen').style.display = 'none';
-
-  // 選択した診断モードを表示
-  document.getElementById(id).style.display = 'block';
-
-  // 上にスクロール
-  window.scrollTo(0,0);
-}
-
-function backHome(){
-  // 全ての診断モードを非表示
-  document.querySelectorAll('.mode').forEach(m => m.style.display = 'none');
-
-  // ホーム画面を表示
-  document.getElementById('home-screen').style.display = 'block';
-
-  window.scrollTo(0,0);
-}
 </script>
-
-</script>
-
 
 </body>
 </html>
