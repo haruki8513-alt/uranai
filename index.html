@@ -6,8 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="性格診断・恋愛診断・仕事診断・相性診断・ストレス診断・メンタル診断・占いなどを無料でできる。名前・誕生日・血液型からあなたのタイプを分析して、今日の運勢や相性もチェックできます。">
 
-  
-<!-- 画像保存用ライブラリ -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
@@ -24,8 +22,6 @@ body {
   background: linear-gradient(180deg,#07102a 0%, #0b0f2f 60%);
   color: #fff;
   overflow-x: hidden;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
 }
 
 /* ---------- 星・背景 ---------- */
@@ -45,7 +41,6 @@ body {
   border-radius: 50%;
   opacity: 0.9;
   animation: floatStar 12s linear infinite;
-  transform: translateZ(0);
 }
 @keyframes floatStar {
   from { transform: translateY(0px) scale(1); opacity: 1; }
@@ -60,7 +55,7 @@ body {
   z-index: -2;
   opacity: 0.9;
 }
-  .twinkling {
+.twinkling {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -69,7 +64,6 @@ body {
   z-index: -1;
   opacity: 0.5;
 }
-
 @keyframes moveStars {
   from { background-position: 0 0; }
   to { background-position: -3000px 3000px; }
@@ -117,16 +111,16 @@ h1 {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ---------- ホームカード（強化） ---------- */
+/* ---------- ホームカード ---------- */
 .home-card {
   width: 250px;
   background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));
   color: #333;
   padding: 20px;
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 4px 12px rgba(255,255,255,0.06) inset;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
   cursor: pointer;
-  transition: transform .28s cubic-bezier(.2,.9,.2,1), box-shadow .28s;
+  transition: transform .28s, box-shadow .28s;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -135,24 +129,6 @@ h1 {
 }
 .home-card h3{ font-size:20px; margin:0 0 8px; }
 .home-card p{ margin:0; font-size:13px; color:#666; }
-.home-card::after {
-  content: "";
-  position: absolute;
-  top: -40%;
-  left: -40%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at 30% 30%, rgba(255,200,230,0.12), transparent 10%),
-              radial-gradient(circle at 70% 70%, rgba(200,240,255,0.06), transparent 10%);
-  transform: rotate(12deg);
-  transition: transform .6s;
-  pointer-events: none;
-}
-.home-card:hover::after { transform: rotate(0deg) translateY(-6px); }
-.home-card:hover {
-  transform: translateY(-10px) scale(1.03);
-  box-shadow: 0 18px 50px rgba(0,0,0,0.55);
-}
 
 /* ---------- モードフォーム ---------- */
 .mode {
@@ -189,34 +165,8 @@ button {
   transition: transform .18s, box-shadow .18s;
   cursor: pointer;
 }
-button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,120,180,0.12); }
 
-/* 戻るボタン */
-.back-btn {
-  margin-top: 12px;
-  padding: 8px 18px;
-  border-radius: 20px;
-  border: none;
-  background: rgba(255,255,255,0.9);
-  color: #333;
-  font-size: 14px;
-}
-.back-btn:hover { background:#fff; transform: translateY(-3px); }
-
-/* SNS共有ボタン */
-.share-btn {
-  margin-top: 12px;
-  padding: 10px 18px;
-  border-radius: 22px;
-  background: #1da1f2;
-  color: #fff;
-  border: none;
-  font-size: 14px;
-  cursor: pointer;
-}
-.share-btn:hover { background: #0d8ae6; }
-
-/* ---------- 結果カード（プロ級） ---------- */
+/* ---------- 結果カード ---------- */
 .result-section {
   background: rgba(255,255,255,0.88);
   color: #333;
@@ -226,27 +176,6 @@ button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,120,
   animation: fadeIn 0.5s ease;
   border: 1px solid rgba(255,255,255,0.6);
   backdrop-filter: blur(10px);
-  box-shadow: 0 10px 40px rgba(0,0,0,0.45), 0 0 30px rgba(255,150,200,0.06) inset;
-}
-.result-section p:first-child {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  text-shadow: 0 0 8px rgba(255,150,200,0.35);
-}
-.type-bright { border-left: 8px solid #ffcc00; }
-.type-calm   { border-left: 8px solid #66ccff; }
-.type-my     { border-left: 8px solid #99cc66; }
-.type-unique { border-left: 8px solid #ff6699; }
-
-/* ---------- モードタイトル ---------- */
-.mode h2 {
-  text-align: center;
-  font-size: 26px;
-  margin-bottom: 14px;
-  text-shadow: 0 0 12px rgba(255,150,200,0.18);
-  border-bottom: 2px solid rgba(255,150,200,0.06);
-  padding-bottom: 10px;
 }
 
 /* ---------- レスポンシブ ---------- */
@@ -254,37 +183,48 @@ button:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(255,120,
   .home-card{ width: 45%; }
 }
 
-/* 480px は削除済み */
-
-/* スマホ用（画面幅が600px以下） */
+/* ---------- スマホ用（完全修正版） ---------- */
 @media (max-width: 600px) {
 
   body {
-    font-size: 18px;
+    font-size: 16px;
   }
 
-  input, button {
-    font-size: 18px;
+  #home-screen {
+    padding: 18px;
+    margin: 12px auto 40px;
   }
 
   .home-card {
     width: 100%;
-    max-width: 320px;
-    margin: 10px auto;
-    padding: 20px;
+    max-width: 360px;
+    margin: 16px auto;
+    padding: 22px;
+  }
+
+  h1 {
+    font-size: 26px;
+    margin-top: 16px;
   }
 
   .mode {
-    padding: 20px;
+    padding: 18px;
   }
 
   .result-section {
-    padding: 20px;
+    padding: 22px;
+    margin-top: 20px;
   }
 
-  h1, h2, h3 {
-    font-size: 24px;
+  h2, h3 {
+    font-size: 22px;
   }
+}
+
+</style>
+</head>
+<body>
+
 
 
 
