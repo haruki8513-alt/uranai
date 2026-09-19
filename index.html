@@ -162,13 +162,6 @@ h1 {
     margin: 12px auto 40px;
   }
 
-  .home-card {
-    width: 100%;
-    max-width: 360px;
-    margin: 16px auto;
-    padding: 22px;
-  }
-
   h1 {
     font-size: 26px;
     margin-top: 16px;
@@ -191,6 +184,31 @@ h1 {
     font-size: 16px;
     line-height: 1.8;
     white-space: normal;
+  }
+
+  /* ⭐ 診断メニューを二列にする */
+  .menu-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  /* ⭐ カードを二列に収める */
+  .home-card {
+    width: 48%;
+    max-width: none;
+    margin: 10px 0;
+    padding: 18px;
+  }
+
+  /* ⭐ 診断フォームが横並びにならないようにする（重要） */
+  .mode label,
+  .mode select,
+  .mode input {
+    display: block;
+    width: 100%;
+    margin-bottom: 14px;
   }
 }
 
