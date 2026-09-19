@@ -653,6 +653,33 @@ function mentalResult(){
     </div>
   `;
 }
+  
+<script>
+function openMode(id){
+  // 全ての診断モードを非表示
+  document.querySelectorAll('.mode').forEach(m => m.style.display = 'none');
+
+  // ホーム画面を非表示
+  document.getElementById('home-screen').style.display = 'none';
+
+  // 選択した診断モードを表示
+  document.getElementById(id).style.display = 'block';
+
+  // 上にスクロール
+  window.scrollTo(0,0);
+}
+
+function backHome(){
+  // 全ての診断モードを非表示
+  document.querySelectorAll('.mode').forEach(m => m.style.display = 'none');
+
+  // ホーム画面を表示
+  document.getElementById('home-screen').style.display = 'block';
+
+  window.scrollTo(0,0);
+}
+</script>
+
 </script>
 
 
