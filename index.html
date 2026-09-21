@@ -4,17 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>診断・占いサイト｜無料診断アプリ</title>
+<title>無料診断アプリ｜性格診断・恋愛診断・相性診断・占い</title>
 
 <meta
   name="description"
-  content="性格診断、恋愛診断、相性診断、仕事診断、ストレス診断、メンタル診断、占いを無料で楽しめる診断アプリです。"
+  content="性格診断、恋愛タイプ診断、恋愛相性診断、仕事診断、友達相性診断、ストレス診断、メンタル診断、今日の占いを無料で楽しめる診断アプリです。"
 />
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0b0f2f">
-
-<link rel="manifest" href="./manifest.json">
-<link rel="apple-touch-icon" href="./icon-192.png">
 
 <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
@@ -31,11 +28,15 @@
   });
 </script>
 
+<!-- 結果を画像化するためのライブラリ -->
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
 <style>
 :root {
   --gold: #f4d35e;
   --purple: #514277;
   --dark: #0b0f2f;
+  --panel: rgba(255,255,255,.08);
   --text-dark: #333;
 }
 
@@ -48,8 +49,8 @@ html {
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
+  margin: 0;
   overflow-x: hidden;
   color: #fff;
   font-family:
@@ -80,16 +81,18 @@ h3 {
   margin-top: 0;
 }
 
+/* 背景画像 */
 .stars,
 .twinkling,
 .clouds {
   position: fixed;
   inset: 0;
+  z-index: -1;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
 }
 
 .stars {
@@ -110,6 +113,7 @@ h3 {
   background-image: url("./clouds.png");
 }
 
+/* 説明 */
 .home-description {
   width: min(900px, 92%);
   margin: 14px auto 28px;
@@ -119,6 +123,7 @@ h3 {
   line-height: 1.8;
 }
 
+/* パネル */
 #home-screen,
 .mode {
   width: min(92%, 900px);
@@ -128,13 +133,14 @@ h3 {
   border-radius: 26px;
   background: linear-gradient(
     180deg,
-    rgba(255,255,255,.1),
+    rgba(255,255,255,.10),
     rgba(255,255,255,.04)
   );
   box-shadow:
     0 20px 45px rgba(0,0,0,.28),
     inset 0 1px 0 rgba(255,255,255,.12);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .mode {
@@ -142,6 +148,7 @@ h3 {
   display: none;
 }
 
+/* カード */
 .card-list {
   display: flex;
   flex-wrap: wrap;
@@ -178,20 +185,21 @@ h3 {
     0 0 24px rgba(244,211,94,.2);
 }
 
-.home-card h3,
-.home-card p {
-  position: relative;
-  z-index: 1;
+.home-card h3 {
+  margin: 6px 0 12px;
 }
 
 .home-card p {
+  margin: 0;
   color: #666;
 }
 
+/* フォーム */
 .mode label {
   display: block;
   margin: 16px 0 8px;
   font-weight: bold;
+  line-height: 1.5;
 }
 
 .mode select,
@@ -214,6 +222,7 @@ h3 {
   box-shadow: 0 0 0 4px rgba(244,211,94,.2);
 }
 
+/* ボタン */
 button {
   min-height: 48px;
   margin: 16px 4px 8px;
@@ -242,6 +251,29 @@ button:active {
   background: linear-gradient(135deg, #d7d9ff, #aeb5ed);
 }
 
+/* ローディング */
+.loading {
+  margin-top: 20px;
+  padding: 18px;
+  text-align: center;
+  border-radius: 16px;
+  background: rgba(255,255,255,.1);
+  animation: loadingPulse 1s ease-in-out infinite alternate;
+}
+
+@keyframes loadingPulse {
+  from {
+    opacity: .55;
+    transform: scale(.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* 結果 */
 .result-section {
   position: relative;
   margin-top: 22px;
@@ -282,6 +314,70 @@ button:active {
   }
 }
 
+/* アドバイス */
+.advice-box {
+  margin-top: 16px;
+  padding: 14px 16px;
+  color: #4a3d1f;
+  line-height: 1.7;
+  border-left: 5px solid var(--gold);
+  border-radius: 12px;
+  background: #fff9d8;
+}
+
+/* ラッキー情報 */
+.lucky-box {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.badge {
+  padding: 8px 12px;
+  color: #3653a5;
+  font-size: 13px;
+  font-weight: bold;
+  border: 1px solid rgba(88,119,220,.15);
+  border-radius: 999px;
+  background: #f3f6ff;
+}
+
+/* 結果URL */
+.result-url-box {
+  margin-top: 18px;
+  padding: 14px;
+  color: #333;
+  border-radius: 12px;
+  background: #f1f3ff;
+}
+
+.result-url-box label {
+  display: block;
+  margin: 0 0 8px;
+  color: var(--purple);
+  font-size: 14px;
+}
+
+.result-url-box input {
+  width: 100%;
+  min-height: 42px;
+  padding: 9px 10px;
+  color: #555;
+  font-size: 13px;
+  border: 1px solid #c6c9e8;
+  border-radius: 9px;
+  background: #fff;
+}
+
+.url-copy-btn {
+  width: 100%;
+  margin: 10px 0 0;
+  color: #21314f;
+  background: linear-gradient(135deg, #dfe8ff, #c7d9ff);
+}
+
+/* 結果ボタン */
 .result-actions {
   display: flex;
   flex-wrap: wrap;
@@ -305,12 +401,10 @@ button:active {
 }
 
 .image-save-btn {
-  color: #4d3b00;
   background: linear-gradient(135deg, #ffe7a3, #f7c95d);
 }
 
 .image-share-btn {
-  color: #4d3b00;
   background: linear-gradient(135deg, #ffd7aa, #ffb866);
 }
 
@@ -324,120 +418,7 @@ button:active {
   background: linear-gradient(135deg, #fff0cb, #ffd98f);
 }
 
-.advice-box {
-  margin-top: 16px;
-  padding: 14px 16px;
-  color: #4a3d1f;
-  line-height: 1.7;
-  border-left: 5px solid var(--gold);
-  border-radius: 12px;
-  background: #fff9d8;
-}
-
-.lucky-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.badge {
-  padding: 8px 12px;
-  color: #3653a5;
-  font-size: 13px;
-  font-weight: bold;
-  border: 1px solid rgba(88,119,220,.15);
-  border-radius: 999px;
-  background: #f3f6ff;
-}
-
-.result-url-box {
-  margin-top: 18px;
-  padding: 14px;
-  color: #333;
-  border-radius: 12px;
-  background: #f1f3ff;
-}
-
-.result-url-box label {
-  display: block;
-  margin-bottom: 8px;
-  color: var(--purple);
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.result-url-box input {
-  width: 100%;
-  min-height: 42px;
-  padding: 9px 10px;
-  color: #555;
-  font-size: 13px;
-  border: 1px solid #c6c9e8;
-  border-radius: 9px;
-  background: #fff;
-}
-
-.url-copy-btn {
-  width: 100%;
-  margin: 10px 0 0;
-  color: #21314f;
-  background: linear-gradient(135deg, #dfe8ff, #c7d9ff);
-}
-
-.loading {
-  margin-top: 20px;
-  padding: 18px;
-  text-align: center;
-  border-radius: 16px;
-  background: rgba(255,255,255,.1);
-  animation: loadingPulse 1s ease-in-out infinite alternate;
-}
-
-@keyframes loadingPulse {
-  from {
-    opacity: .55;
-    transform: scale(.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.mode-enter {
-  animation: modeFadeSlideIn .5s ease both;
-}
-
-.home-screen-enter {
-  animation: homeFadeSlideIn .45s ease both;
-}
-
-@keyframes modeFadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateX(28px) translateY(24px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(0);
-  }
-}
-
-@keyframes homeFadeSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-22px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
+/* 履歴・ランキング */
 .history-section,
 .ranking-section,
 .seo-description {
@@ -534,15 +515,7 @@ button:active {
   font-weight: bold;
 }
 
-.shared-result-notice {
-  width: min(92%, 560px);
-  margin: 20px auto;
-  padding: 14px;
-  text-align: center;
-  border-radius: 14px;
-  background: rgba(255,255,255,.12);
-}
-
+/* SEO説明 */
 .seo-description {
   line-height: 1.9;
 }
@@ -552,11 +525,27 @@ button:active {
   font-size: 1.35rem;
 }
 
-.seo-note {
-  color: rgba(255,255,255,.72);
-  font-size: .88rem;
+.seo-link-list {
+  margin: 10px 0;
+  padding-left: 22px;
 }
 
+.seo-link-list a {
+  color: #fff1a8;
+  font-weight: bold;
+}
+
+/* 共有URL表示 */
+.shared-result-notice {
+  width: min(92%, 560px);
+  margin: 20px auto;
+  padding: 14px;
+  text-align: center;
+  border-radius: 14px;
+  background: rgba(255,255,255,.12);
+}
+
+/* スマホ */
 @media (max-width: 600px) {
   h1 {
     font-size: 1.8rem;
@@ -624,15 +613,6 @@ button:active {
     font-size: 14px;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: .01ms !important;
-    transition-duration: .01ms !important;
-  }
-}
 </style>
 </head>
 
@@ -652,6 +632,7 @@ button:active {
 
 <div id="shared-result-container"></div>
 
+<!-- ホーム -->
 <div id="home-screen">
   <h2>診断メニュー</h2>
 
@@ -666,12 +647,12 @@ button:active {
       <p>10問でタイプ診断</p>
     </div>
 
-    <div class="home-card" onclick="openMode('love-type-mode')">
+    <div class="home-card" onclick="openMode('love-mode')">
       <h3>❤️ 恋愛タイプ診断</h3>
       <p>恋愛の傾向</p>
     </div>
 
-    <div class="home-card" onclick="openMode('love-match-mode')">
+    <div class="home-card" onclick="openMode('match-mode')">
       <h3>💑 恋愛相性診断</h3>
       <p>相性をチェック</p>
     </div>
@@ -697,11 +678,13 @@ button:active {
     </div>
   </div>
 
+  <!-- ランキング -->
   <div class="ranking-section">
     <h3>📊 みんなの診断傾向</h3>
     <div id="ranking-list"></div>
   </div>
 
+  <!-- 履歴 -->
   <div class="history-section">
     <h3>📚 前回の診断結果</h3>
 
@@ -726,6 +709,7 @@ button:active {
     </button>
   </div>
 
+  <!-- SEO説明 -->
   <section class="seo-description">
     <h2>無料で楽しめる診断・占い</h2>
 
@@ -735,7 +719,15 @@ button:active {
       無料で楽しめます。
     </p>
 
-    <p class="seo-note">
+    <ul class="seo-link-list">
+      <li>🧠 無料性格診断</li>
+      <li>❤️ 恋愛タイプ診断</li>
+      <li>💑 恋愛相性診断</li>
+      <li>💼 仕事タイプ診断</li>
+      <li>😵 ストレス診断</li>
+    </ul>
+
+    <p>
       ※この診断結果はエンターテインメント目的の簡易チェックです。
       医学的・心理学的な診断ではありません。
     </p>
@@ -775,93 +767,121 @@ button:active {
 
   <button onclick="startUranai()">占う</button>
   <div id="uranai-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
+
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
 </div>
 
 <!-- 性格診断 -->
 <div id="seikaku-mode" class="mode">
   <h2>🧠 性格診断</h2>
   <div id="seikaku-questions"></div>
+
   <button onclick="startSeikaku()">診断する</button>
   <div id="seikaku-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
+
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
 </div>
 
-<!-- 恋愛タイプ診断 -->
-<div id="love-type-mode" class="mode">
+<!-- 恋愛診断 -->
+<div id="love-mode" class="mode">
   <h2>❤️ 恋愛タイプ診断</h2>
   <div id="love-questions"></div>
-  <button onclick="startLoveType()">診断する</button>
-  <div id="love-type-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
+
+  <button onclick="startLove()">診断する</button>
+  <div id="love-result"></div>
+
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
 </div>
 
-<!-- 恋愛相性診断 -->
-<div id="love-match-mode" class="mode">
+<!-- 相性診断 -->
+<div id="match-mode" class="mode">
   <h2>💑 恋愛相性診断</h2>
 
-  <label for="lm_you">あなたの名前</label>
-  <input id="lm_you" type="text" placeholder="あなたの名前">
+  <label for="you-name">あなたの名前</label>
+  <input id="you-name" type="text" placeholder="あなたの名前">
 
-  <label for="lm_partner">相手の名前</label>
-  <input id="lm_partner" type="text" placeholder="相手の名前">
+  <label for="partner-name">相手の名前</label>
+  <input id="partner-name" type="text" placeholder="相手の名前">
 
-  <label for="lm_you_bd">あなたの誕生日</label>
-  <input id="lm_you_bd" type="date">
+  <label for="you-birthday">あなたの誕生日</label>
+  <input id="you-birthday" type="date">
 
-  <label for="lm_partner_bd">相手の誕生日</label>
-  <input id="lm_partner_bd" type="date">
+  <label for="partner-birthday">相手の誕生日</label>
+  <input id="partner-birthday" type="date">
 
-  <button onclick="startLoveMatch()">診断する</button>
-  <div id="love-match-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
+  <button onclick="startMatch()">診断する</button>
+  <div id="match-result"></div>
+
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
 </div>
 
 <!-- 仕事診断 -->
 <div id="work-mode" class="mode">
   <h2>💼 仕事タイプ診断</h2>
   <div id="work-questions"></div>
+
   <button onclick="startWork()">診断する</button>
   <div id="work-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
+
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
 </div>
 
-<!-- 友達相性診断 -->
+<!-- 友達診断 -->
 <div id="friend-mode" class="mode">
   <h2>👭 友達相性診断</h2>
   <div id="friend-questions"></div>
+
   <button onclick="startFriend()">診断する</button>
   <div id="friend-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
+
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
 </div>
 
 <!-- ストレス診断 -->
 <div id="stress-mode" class="mode">
   <h2>😵 ストレス診断</h2>
   <div id="stress-questions"></div>
+
   <button onclick="startStress()">診断する</button>
   <div id="stress-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
+
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
 </div>
 
 <!-- メンタル診断 -->
 <div id="mental-mode" class="mode">
   <h2>🌙 メンタル診断</h2>
   <div id="mental-questions"></div>
+
   <button onclick="startMental()">診断する</button>
   <div id="mental-result"></div>
-  <button class="back-button" onclick="backHome()">ホームに戻る</button>
-</div>
 
-<!-- html2canvas -->
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <button class="back-button" onclick="backHome()">
+    ホームに戻る
+  </button>
+</div>
 
 <script>
 const HISTORY_KEY = "diagnosisHistory";
 const RANKING_KEY = "diagnosisRanking";
 const MAX_HISTORY_COUNT = 10;
 
-const questions = {
+/* 質問データ */
+const questionData = {
   seikaku: [
     ["休みの日は？", ["家でゆっくり", "外で遊ぶ", "ひとりで集中", "誰かと一緒"]],
     ["友達から言われることは？", ["明るい", "落ち着いている", "マイペース", "個性的"]],
@@ -935,6 +955,7 @@ const questions = {
   ]
 };
 
+/* 文字列を安全に表示 */
 function escapeHTML(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -944,10 +965,12 @@ function escapeHTML(value) {
     .replace(/'/g, "&#039;");
 }
 
+/* 質問を作成 */
 function createQuestions(type, targetId, prefix) {
   const target = document.getElementById(targetId);
+  const data = questionData[type];
 
-  target.innerHTML = questions[type].map((question, index) => {
+  target.innerHTML = data.map((question, index) => {
     const number = index + 1;
 
     const options = question[1].map((option, optionIndex) => {
@@ -955,13 +978,18 @@ function createQuestions(type, targetId, prefix) {
         ? optionIndex + 1
         : optionIndex === 0 ? 1 : 0;
 
-      return `<option value="${value}">${option}</option>`;
+      return `
+        <option value="${value}">
+          ${option}
+        </option>
+      `;
     }).join("");
 
     return `
       <label for="${prefix}${number}">
         ${number}．${question[0]}
       </label>
+
       <select id="${prefix}${number}">
         ${options}
       </select>
@@ -969,16 +997,34 @@ function createQuestions(type, targetId, prefix) {
   }).join("");
 }
 
+/* 合計 */
 function getTotal(prefix, count) {
   let total = 0;
 
   for (let i = 1; i <= count; i++) {
-    total += Number(document.getElementById(prefix + i).value);
+    total += Number(
+      document.getElementById(prefix + i).value
+    );
   }
 
   return total;
 }
 
+/* ローディング */
+function showLoading(targetId, message) {
+  document.getElementById(targetId).innerHTML = `
+    <div class="loading">
+      ✨ ${message}
+    </div>
+  `;
+}
+
+function startLoading(targetId, message, callback) {
+  showLoading(targetId, message);
+  setTimeout(callback, 900);
+}
+
+/* 結果URL */
 function createResultURL(category, code) {
   const url = new URL(window.location.href);
 
@@ -991,24 +1037,11 @@ function createResultURL(category, code) {
   return url.toString();
 }
 
-function showLoading(targetId, message) {
-  const target = document.getElementById(targetId);
-
-  target.innerHTML = `
-    <div class="loading">
-      ✨ ${message}
-    </div>
-  `;
-}
-
-function startLoading(targetId, message, callback) {
-  showLoading(targetId, message);
-
-  setTimeout(callback, 900);
-}
-
-function saveDiagnosisResult(title, summary, detail) {
-  const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+/* 履歴保存 */
+function saveHistory(title, summary, detail) {
+  const history = JSON.parse(
+    localStorage.getItem(HISTORY_KEY) || "[]"
+  );
 
   history.unshift({
     id: Date.now() + Math.random(),
@@ -1026,13 +1059,16 @@ function saveDiagnosisResult(title, summary, detail) {
   renderHistory();
 }
 
+/* 履歴表示 */
 function renderHistory() {
   const list = document.getElementById("history-list");
   const clearButton = document.getElementById("clear-history-button");
 
   if (!list || !clearButton) return;
 
-  const history = JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+  const history = JSON.parse(
+    localStorage.getItem(HISTORY_KEY) || "[]"
+  );
 
   if (history.length === 0) {
     list.innerHTML = `
@@ -1040,6 +1076,7 @@ function renderHistory() {
         まだ診断結果がありません。
       </p>
     `;
+
     clearButton.style.display = "none";
     return;
   }
@@ -1064,10 +1101,10 @@ function renderHistory() {
 
       if (!selected) return;
 
-      const detail = document.getElementById("history-detail");
-      const content = document.getElementById("history-detail-content");
+      const detailBox = document.getElementById("history-detail");
+      const detailContent = document.getElementById("history-detail-content");
 
-      content.innerHTML = `
+      detailContent.innerHTML = `
         <strong>${escapeHTML(selected.title)}</strong>
         <div>${escapeHTML(selected.summary)}</div>
         <div style="margin-top:10px;color:#666;">
@@ -1078,18 +1115,22 @@ function renderHistory() {
         </div>
       `;
 
-      detail.classList.add("active");
+      detailBox.classList.add("active");
     });
   });
 }
 
+/* 履歴削除 */
 function clearHistory() {
-  if (!confirm("診断履歴をすべて削除しますか？")) return;
+  if (!confirm("診断履歴をすべて削除しますか？")) {
+    return;
+  }
 
   localStorage.removeItem(HISTORY_KEY);
   renderHistory();
 }
 
+/* ランキング */
 function increaseRanking(category) {
   const ranking = JSON.parse(
     localStorage.getItem(RANKING_KEY) || "{}"
@@ -1107,6 +1148,9 @@ function increaseRanking(category) {
 
 function renderRanking() {
   const list = document.getElementById("ranking-list");
+
+  if (!list) return;
+
   const ranking = JSON.parse(
     localStorage.getItem(RANKING_KEY) || "{}"
   );
@@ -1122,6 +1166,7 @@ function renderRanking() {
         <span>0回</span>
       </div>
     `;
+
     return;
   }
 
@@ -1134,6 +1179,7 @@ function renderRanking() {
   `).join("");
 }
 
+/* コピー */
 async function copyResult(text) {
   try {
     await navigator.clipboard.writeText(text);
@@ -1143,6 +1189,7 @@ async function copyResult(text) {
   }
 }
 
+/* テキスト共有 */
 async function shareResult(text) {
   if (navigator.share) {
     try {
@@ -1150,22 +1197,19 @@ async function shareResult(text) {
         title: "診断結果",
         text
       });
+
       return;
     } catch {
       return;
     }
   }
 
-  await copyResult(text);
+  copyResult(text);
 }
 
+/* 結果画像を作成 */
 async function createResultCanvas(target) {
   const card = target.querySelector(".result-card-capture");
-
-  if (!card) {
-    throw new Error("結果カードが見つかりません。");
-  }
-
   const actions = card.querySelector(".capture-exclude");
 
   if (actions) {
@@ -1175,7 +1219,8 @@ async function createResultCanvas(target) {
   const canvas = await html2canvas(card, {
     scale: 2,
     backgroundColor: "#f1f2ff",
-    useCORS: true
+    useCORS: true,
+    logging: false
   });
 
   if (actions) {
@@ -1185,6 +1230,7 @@ async function createResultCanvas(target) {
   return canvas;
 }
 
+/* 画像保存 */
 async function downloadResultImage(target, title) {
   try {
     const canvas = await createResultCanvas(target);
@@ -1194,13 +1240,14 @@ async function downloadResultImage(target, title) {
     link.href = canvas.toDataURL("image/png");
     link.click();
 
-    alert("画像を保存しました！");
+    alert("診断結果を画像として保存しました！");
   } catch (error) {
     console.error(error);
     alert("画像の保存に失敗しました。");
   }
 }
 
+/* 画像共有 */
 async function shareResultImage(target, title, text) {
   try {
     const canvas = await createResultCanvas(target);
@@ -1225,6 +1272,7 @@ async function shareResultImage(target, title, text) {
         text,
         files: [file]
       });
+
       return;
     }
 
@@ -1233,7 +1281,9 @@ async function shareResultImage(target, title, text) {
     link.href = URL.createObjectURL(blob);
     link.click();
 
-    alert("画像共有に対応していないため、画像を保存しました。");
+    alert(
+      "このブラウザは画像共有に対応していないため、画像を保存しました。"
+    );
   } catch (error) {
     if (error.name !== "AbortError") {
       alert("画像共有に失敗しました。");
@@ -1241,6 +1291,7 @@ async function shareResultImage(target, title, text) {
   }
 }
 
+/* 結果表示 */
 function showResult(
   targetId,
   resultHTML,
@@ -1256,12 +1307,12 @@ function showResult(
   const target = document.getElementById(targetId);
   const resultURL = createResultURL(category, resultCode);
 
-  const text = `${title}
+  const shareText = `${title}
 ${summary}
 
 ${detail}
 
-アドバイス：
+💡 アドバイス
 ${advice}
 
 ラッキーカラー：${luckyColor}
@@ -1291,7 +1342,12 @@ ${resultURL}`;
 
       <div class="result-url-box">
         <label>🔗 この結果のURL</label>
-        <input value="${escapeHTML(resultURL)}" readonly>
+
+        <input
+          value="${escapeHTML(resultURL)}"
+          readonly
+        >
+
         <button class="url-copy-btn" type="button">
           URLをコピー
         </button>
@@ -1326,11 +1382,11 @@ ${resultURL}`;
   `;
 
   target.querySelector(".copy-btn").onclick = () => {
-    copyResult(text);
+    copyResult(shareText);
   };
 
   target.querySelector(".share-btn").onclick = () => {
-    shareResult(text);
+    shareResult(shareText);
   };
 
   target.querySelector(".url-copy-btn").onclick = () => {
@@ -1342,19 +1398,26 @@ ${resultURL}`;
   };
 
   target.querySelector(".image-share-btn").onclick = () => {
-    shareResultImage(target, title, text);
+    shareResultImage(target, title, shareText);
   };
 
   increaseRanking(category);
-  trackDiagnosis(title, summary);
 
-  saveDiagnosisResult(
+  if (typeof gtag === "function") {
+    gtag("event", "diagnosis_completed", {
+      diagnosis_name: title,
+      result_summary: summary
+    });
+  }
+
+  saveHistory(
     title,
     summary,
     `${detail}\n\n${advice}\n\n結果URL：\n${resultURL}`
   );
 }
 
+/* 画面切り替え */
 function openMode(id) {
   const home = document.getElementById("home-screen");
   const mode = document.getElementById(id);
@@ -1367,7 +1430,9 @@ function openMode(id) {
   });
 
   mode.style.display = "block";
+
   void mode.offsetWidth;
+
   mode.classList.add("mode-enter");
 
   window.scrollTo({
@@ -1385,7 +1450,9 @@ function backHome() {
 
   home.style.display = "block";
   home.classList.remove("home-screen-enter");
+
   void home.offsetWidth;
+
   home.classList.add("home-screen-enter");
 
   renderHistory();
@@ -1397,97 +1464,33 @@ function backHome() {
   });
 }
 
-function trackDiagnosis(name, result) {
-  if (typeof gtag !== "function") return;
-
-  gtag("event", "diagnosis_completed", {
-    diagnosis_name: name,
-    result_summary: result
-  });
-}
-
-function renderSharedResult() {
-  const params = new URLSearchParams(window.location.search);
-  const category = params.get("result");
-  const code = params.get("code");
-
-  if (!category || !code) return;
-
-  const container = document.getElementById("shared-result-container");
-
-  const categoryName = {
-    uranai: "🔮 占い",
-    seikaku: "🧠 性格診断",
-    love: "❤️ 恋愛タイプ診断",
-    match: "💑 恋愛相性診断",
-    work: "💼 仕事タイプ診断",
-    friend: "👭 友達相性診断",
-    stress: "😵 ストレス診断",
-    mental: "🌙 メンタル診断"
-  }[category] || "診断結果";
-
-  container.innerHTML = `
-    <div class="shared-result-notice">
-      🔗 共有された診断結果を表示しています
-    </div>
-
-    <div class="result-section">
-      <h3>${categoryName}</h3>
-      <p><strong>${escapeHTML(code)}</strong></p>
-      <p>
-        この結果は共有URLから表示されています。
-        あなたも診断を試してみましょう。
-      </p>
-
-      <div class="result-actions">
-        <button type="button" onclick="backHome()">
-          🔮 自分も診断する
-        </button>
-      </div>
-    </div>
-  `;
-}
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./sw.js");
-  });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  createQuestions("seikaku", "seikaku-questions", "sq");
-  createQuestions("love", "love-questions", "l");
-  createQuestions("work", "work-questions", "w");
-  createQuestions("friend", "friend-questions", "f");
-  createQuestions("stress", "stress-questions", "s");
-  createQuestions("mental", "mental-questions", "m");
-
-  renderHistory();
-  renderRanking();
-  renderSharedResult();
-});
-
+/* 占い */
 function startUranai() {
   startLoading("uranai-result", "星の配置を確認中…", () => {
-    const name = document.getElementById("name").value.trim() || "あなた";
+    const name =
+      document.getElementById("name").value.trim() || "あなた";
+
     const seiza = document.getElementById("seiza").value;
     const blood = document.getElementById("blood").value;
-    const luck = ["最高", "良い", "普通", "微妙", "悪い"][
-      Math.floor(Math.random() * 5)
-    ];
+
+    const luckList = ["最高", "良い", "普通", "微妙", "悪い"];
+    const luck =
+      luckList[Math.floor(Math.random() * luckList.length)];
 
     showResult(
       "uranai-result",
+
       `
         <h3>${escapeHTML(name)}さんの今日の運勢</h3>
         <p>星座：${escapeHTML(seiza)}</p>
         <p>血液型：${escapeHTML(blood)}型</p>
         <p><strong>今日の運勢：${luck}</strong></p>
       `,
+
       "🔮 占い",
       `${name}さんの今日の運勢：${luck}`,
       `${name}さんの今日の運勢は「${luck}」です。`,
-      "uranai",
+      "占い",
       "今日は焦らず、自分のペースを大切にしましょう。",
       "ブルー",
       "イヤホン",
@@ -1496,27 +1499,36 @@ function startUranai() {
   });
 }
 
+/* 性格診断 */
 function startSeikaku() {
   startLoading("seikaku-result", "性格を分析中…", () => {
     const total = getTotal("sq", 10);
 
     let type = "";
-    if (total <= 15) type = "慎重で落ち着いたタイプ";
-    else if (total <= 25) type = "安定したバランスタイプ";
-    else if (total <= 35) type = "自由でマイペースなタイプ";
-    else type = "情熱的で行動力のあるタイプ";
+
+    if (total <= 15) {
+      type = "慎重で落ち着いたタイプ";
+    } else if (total <= 25) {
+      type = "安定したバランスタイプ";
+    } else if (total <= 35) {
+      type = "自由でマイペースなタイプ";
+    } else {
+      type = "情熱的で行動力のあるタイプ";
+    }
 
     showResult(
       "seikaku-result",
+
       `
         <h3>あなたの性格タイプ</h3>
         <p><strong>${type}</strong></p>
       `,
+
       "🧠 性格診断",
       type,
       `あなたの性格タイプは「${type}」です。`,
-      "seikaku",
-      "自分らしいペースを大切にすると、魅力がさらに伸びそうです。",
+      "性格診断",
+      "周囲に合わせすぎず、自分の感覚を大切にすると魅力が伸びます。",
       "ブルー",
       "ノート",
       type
@@ -1524,26 +1536,35 @@ function startSeikaku() {
   });
 }
 
-function startLoveType() {
-  startLoading("love-type-result", "恋愛傾向を確認中…", () => {
-    const total = getTotal("l", 10);
+/* 恋愛診断 */
+function startLove() {
+  startLoading("love-result", "恋愛傾向を確認中…", () => {
+    const total = getTotal("lq", 10);
 
     let type = "";
-    if (total <= 3) type = "クールで慎重な恋愛タイプ";
-    else if (total <= 6) type = "バランス型の恋愛タイプ";
-    else if (total <= 8) type = "情熱的で積極的な恋愛タイプ";
-    else type = "一途で深い愛情を持つ恋愛タイプ";
+
+    if (total <= 3) {
+      type = "クールで慎重な恋愛タイプ";
+    } else if (total <= 6) {
+      type = "バランス型の恋愛タイプ";
+    } else if (total <= 8) {
+      type = "情熱的で積極的な恋愛タイプ";
+    } else {
+      type = "一途で深い愛情を持つ恋愛タイプ";
+    }
 
     showResult(
-      "love-type-result",
+      "love-result",
+
       `
         <h3>あなたの恋愛タイプ</h3>
         <p><strong>${type}</strong></p>
       `,
+
       "❤️ 恋愛タイプ診断",
       type,
       `あなたの恋愛タイプは「${type}」です。`,
-      "love",
+      "恋愛診断",
       "無理に自分を変えず、素直な気持ちを伝えることが大切です。",
       "ピンク",
       "メモ帳",
@@ -1552,51 +1573,68 @@ function startLoveType() {
   });
 }
 
-function startLoveMatch() {
-  startLoading("love-match-result", "相性を計算中…", () => {
-    const you = document.getElementById("lm_you").value.trim() || "あなた";
-    const partner = document.getElementById("lm_partner").value.trim() || "相手";
-    const percent = Math.floor(Math.random() * 41) + 60;
+/* 相性診断 */
+function startMatch() {
+  startLoading("match-result", "相性を計算中…", () => {
+    const you =
+      document.getElementById("you-name").value.trim() || "あなた";
+
+    const partner =
+      document.getElementById("partner-name").value.trim() || "相手";
+
+    const percent =
+      Math.floor(Math.random() * 41) + 60;
 
     showResult(
-      "love-match-result",
+      "match-result",
+
       `
         <h3>${escapeHTML(you)}さんと${escapeHTML(partner)}さんの相性</h3>
         <p><strong>相性：${percent}%</strong></p>
       `,
+
       "💑 恋愛相性診断",
       `${you}さんと${partner}さんの相性：${percent}%`,
       `${you}さんと${partner}さんの相性は${percent}%です。`,
-      "match",
+      "相性診断",
       "お互いの違いを楽しむことが、関係を深める鍵になりそうです。",
       "ラベンダー",
       "手紙",
-      String(percent)
+      `${percent}%`
     );
   });
 }
 
+/* 仕事診断 */
 function startWork() {
   startLoading("work-result", "働き方を診断中…", () => {
-    const total = getTotal("w", 10);
+    const total = getTotal("wq", 10);
 
     let type = "";
-    if (total <= 3) type = "安定志向で落ち着いた仕事が向いています";
-    else if (total <= 6) type = "バランス型で幅広い仕事に適応できます";
-    else if (total <= 8) type = "自由度の高い仕事が向いています";
-    else type = "挑戦的でリーダー向きの仕事タイプです";
+
+    if (total <= 3) {
+      type = "安定志向で落ち着いた仕事が向いています";
+    } else if (total <= 6) {
+      type = "バランス型で幅広い仕事に適応できます";
+    } else if (total <= 8) {
+      type = "自由度の高い仕事が向いています";
+    } else {
+      type = "挑戦的でリーダー向きの仕事タイプです";
+    }
 
     showResult(
       "work-result",
+
       `
         <h3>あなたの仕事タイプ</h3>
         <p><strong>${type}</strong></p>
       `,
+
       "💼 仕事タイプ診断",
       type,
       `あなたの仕事タイプは「${type}」です。`,
-      "work",
-      "得意なことを一つずつ伸ばしていくと、成果につながりそうです。",
+      "仕事診断",
+      "得意なことに集中して、少しずつ成果を積み重ねましょう。",
       "黄緑",
       "ノートPC",
       type
@@ -1604,49 +1642,62 @@ function startWork() {
   });
 }
 
+/* 友達診断 */
 function startFriend() {
   startLoading("friend-result", "友達との相性を確認中…", () => {
-    const total = getTotal("f", 10);
+    const total = getTotal("fq", 10);
     const percent = total * 10;
 
     showResult(
       "friend-result",
+
       `
         <h3>友達との相性</h3>
         <p><strong>相性：${percent}%</strong></p>
       `,
+
       "👭 友達相性診断",
       `友達との相性：${percent}%`,
       `友達との相性は${percent}%です。`,
-      "friend",
-      "相手を理解しようとする姿勢が、友情を深める鍵になります。",
+      "友達相性診断",
+      "相手を理解しようとする姿勢が友情を深める鍵です。",
       "グリーン",
       "カフェ",
-      String(percent)
+      `${percent}%`
     );
   });
 }
 
+/* ストレス診断 */
 function startStress() {
   startLoading("stress-result", "ストレス度を測定中…", () => {
-    const total = getTotal("s", 9);
+    const total = getTotal("stq", 9);
 
     let level = "";
-    if (total <= 3) level = "ストレスはほとんどありません";
-    else if (total <= 6) level = "少しストレスがあります";
-    else if (total <= 8) level = "ストレスが溜まっています";
-    else level = "かなりストレスが強い状態です";
+
+    if (total <= 3) {
+      level = "ストレスはほとんどありません";
+    } else if (total <= 6) {
+      level = "少しストレスがあります";
+    } else if (total <= 8) {
+      level = "ストレスが溜まっています";
+    } else {
+      level = "かなりストレスが強い状態です";
+    }
 
     showResult(
       "stress-result",
+
       `
         <h3>ストレス診断結果</h3>
         <p><strong>${level}</strong></p>
+        <p>※この診断は医学的な診断ではありません。</p>
       `,
+
       "😵 ストレス診断",
       level,
       `ストレス診断結果は「${level}」です。`,
-      "stress",
+      "ストレス診断",
       "無理をせず、睡眠や休憩の時間を意識してください。",
       "ホワイト",
       "リラックスグッズ",
@@ -1655,29 +1706,36 @@ function startStress() {
   });
 }
 
+/* メンタル診断 */
 function startMental() {
   startLoading("mental-result", "心の状態を確認中…", () => {
-    const total = getTotal("m", 5);
+    const total = getTotal("mq", 5);
 
     let level = "";
-    if (total <= 1) level = "メンタルは安定しています";
-    else if (total <= 3) level = "少し不安定です";
-    else if (total <= 4) level = "心身の疲れがたまっている可能性があります";
-    else level = "かなりしんどい状態です";
+
+    if (total <= 1) {
+      level = "メンタルは安定しています";
+    } else if (total <= 3) {
+      level = "少し不安定です";
+    } else if (total <= 4) {
+      level = "心身の疲れがたまっている可能性があります";
+    } else {
+      level = "かなりしんどい状態です";
+    }
 
     showResult(
       "mental-result",
+
       `
         <h3>メンタル診断結果</h3>
         <p><strong>${level}</strong></p>
-        <p class="seo-note">
-          ※この診断は医学的な診断ではありません。
-        </p>
+        <p>※この診断は医学的な診断ではありません。</p>
       `,
+
       "🌙 メンタル診断",
       level,
       `メンタル診断結果は「${level}」です。`,
-      "mental",
+      "メンタル診断",
       "つらい状態が続く場合は、一人で抱え込まず身近な人に相談してください。",
       "パープル",
       "温かい飲み物",
@@ -1685,6 +1743,56 @@ function startMental() {
     );
   });
 }
+
+/* URLで共有された結果を表示 */
+function showSharedResult() {
+  const params = new URLSearchParams(
+    window.location.search
+  );
+
+  const category = params.get("result");
+  const code = params.get("code");
+
+  if (!category || !code) {
+    return;
+  }
+
+  const container = document.getElementById(
+    "shared-result-container"
+  );
+
+  container.innerHTML = `
+    <div class="shared-result-notice">
+      🔗 共有された診断結果を表示しています
+    </div>
+
+    <div class="result-section">
+      <h3>${escapeHTML(category)}</h3>
+      <p><strong>${escapeHTML(code)}</strong></p>
+      <p>
+        この結果は共有URLから表示されています。
+      </p>
+
+      <button onclick="backHome()">
+        自分も診断する
+      </button>
+    </div>
+  `;
+}
+
+/* 初期化 */
+document.addEventListener("DOMContentLoaded", () => {
+  createQuestions("seikaku", "seikaku-questions", "sq");
+  createQuestions("love", "love-questions", "lq");
+  createQuestions("work", "work-questions", "wq");
+  createQuestions("friend", "friend-questions", "fq");
+  createQuestions("stress", "stress-questions", "stq");
+  createQuestions("mental", "mental-questions", "mq");
+
+  renderHistory();
+  renderRanking();
+  showSharedResult();
+});
 </script>
 
 </body>
