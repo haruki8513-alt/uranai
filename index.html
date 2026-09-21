@@ -4,11 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>無料診断アプリ｜性格診断・恋愛診断・相性診断・占い</title>
-
-  <meta
-    name="description"
-    content="無料でできる性格診断、恋愛タイプ診断、恋愛相性診断、仕事診断、ストレス診断、メンタル診断、今日の占いを楽しめる診断アプリです。"
-  />
+  <meta name="description" content="無料でできる性格診断、恋愛タイプ診断、恋愛相性診断、仕事診断、ストレス診断、メンタル診断、今日の占いを楽しめる診断アプリです。">
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b0f2f" />
 
@@ -20,15 +16,13 @@
       --purple: #514277;
       --dark: #0b0f2f;
       --text-dark: #333;
+      --ad-bg: #fff9e7;
+      --link: #3e5dd1;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -51,17 +45,13 @@
     }
 
     h2 {
-      margin: 0 0 20px;
+      margin: 0 0 18px;
       text-align: center;
     }
 
-    h3 {
-      margin-top: 0;
-    }
+    h3 { margin-top: 0; }
 
-    .stars,
-    .twinkling,
-    .clouds {
+    .stars, .twinkling, .clouds {
       position: fixed;
       inset: 0;
       width: 100%;
@@ -72,28 +62,25 @@
     }
 
     .stars {
-      z-index: -3;
-      opacity: .88;
+      z-index: -3; opacity: .88;
       background-image: url("./BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png");
     }
 
     .twinkling {
-      z-index: -2;
-      opacity: .45;
+      z-index: -2; opacity: .45;
       background-image: url("./twinkling.png");
     }
 
     .clouds {
-      z-index: -1;
-      opacity: .22;
+      z-index: -1; opacity: .22;
       background-image: url("./clouds.png");
     }
 
     .home-description {
       width: min(900px, 92%);
       margin: 14px auto 28px;
-      color: rgba(255,255,255,.95);
       text-align: center;
+      color: rgba(255,255,255,.95);
       font-size: 18px;
       line-height: 1.8;
     }
@@ -104,12 +91,10 @@
       width: min(92%, 900px);
       margin: 20px auto 40px;
       padding: 24px;
-      border: 1px solid rgba(255,255,255,.16);
       border-radius: 26px;
+      border: 1px solid rgba(255,255,255,.16);
       background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-      box-shadow:
-        0 20px 45px rgba(0,0,0,.28),
-        inset 0 1px 0 rgba(255,255,255,.12);
+      box-shadow: 0 20px 45px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.12);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
     }
@@ -121,8 +106,7 @@
 
     .content-block {
       width: min(92%, 1000px);
-      margin: 18px auto 36px;
-      padding: 20px 22px;
+      padding: 22px;
     }
 
     .card-list {
@@ -134,35 +118,23 @@
 
     .home-card {
       display: block;
-      position: relative;
       width: 250px;
       min-height: 130px;
       padding: 22px 18px;
-      overflow: hidden;
       color: var(--text-dark);
       text-align: center;
-      cursor: pointer;
       border: 1px solid rgba(105,93,160,.18);
       border-radius: 20px;
       background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(238,239,255,.9));
-      box-shadow:
-        0 12px 24px rgba(15,18,55,.2),
-        inset 0 1px 0 rgba(255,255,255,.9);
+      box-shadow: 0 12px 24px rgba(15,18,55,.2), inset 0 1px 0 rgba(255,255,255,.9);
       text-decoration: none;
       transition: transform .28s ease, box-shadow .28s ease;
+      cursor: pointer;
     }
 
     .home-card:hover {
       transform: translateY(-8px) scale(1.04);
-      box-shadow:
-        0 20px 35px rgba(15,18,55,.30),
-        0 0 24px rgba(244,211,94,.2);
-    }
-
-    .home-card h3,
-    .home-card p {
-      position: relative;
-      z-index: 1;
+      box-shadow: 0 20px 35px rgba(15,18,55,.30), 0 0 24px rgba(244,211,94,.2);
     }
 
     .home-card h3 {
@@ -175,15 +147,14 @@
       color: #666;
     }
 
-    .mode label {
+    label {
       display: block;
       margin: 16px 0 8px;
       font-weight: bold;
       line-height: 1.5;
     }
 
-    .mode select,
-    .mode input {
+    select, input {
       width: 100%;
       min-height: 48px;
       padding: 12px 14px;
@@ -196,8 +167,7 @@
       background: linear-gradient(#fff, #eff1ff);
     }
 
-    .mode select:focus,
-    .mode input:focus {
+    select:focus, input:focus {
       border-color: var(--gold);
       box-shadow: 0 0 0 4px rgba(244,211,94,.2);
     }
@@ -233,11 +203,11 @@
     .diagnosis-info {
       margin-top: 18px;
       padding: 18px;
-      color: rgba(255,255,255,0.92);
       line-height: 1.8;
-      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.92);
+      border: 1px solid rgba(255,255,255,.12);
       border-radius: 16px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255,255,255,.06);
     }
 
     .diagnosis-info h3 {
@@ -248,10 +218,6 @@
 
     .diagnosis-info p {
       margin: 0 0 18px;
-    }
-
-    .diagnosis-info p:last-of-type {
-      margin-bottom: 0;
     }
 
     .diagnosis-keywords {
@@ -294,21 +260,6 @@
     .result-section h3 {
       padding-right: 35px;
       color: var(--purple);
-    }
-
-    .result-section p {
-      line-height: 1.7;
-    }
-
-    @keyframes resultFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(22px) scale(.96);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
     }
 
     .advice-box {
@@ -372,35 +323,9 @@
       min-width: 125px;
     }
 
-    .copy-btn {
-      background: linear-gradient(135deg, #dfe8ff, #c7d9ff);
-      color: #21314f;
-    }
-
-    .share-btn {
-      background: linear-gradient(135deg, #f0d5ff, #d9b5ff);
-      color: #33214c;
-    }
-
-    .image-save-btn {
-      background: linear-gradient(135deg, #ffe7a3, #f7c95d);
-      color: #4d3b00;
-    }
-
-    .image-share-btn {
-      background: linear-gradient(135deg, #ffd7aa, #ffb866);
-      color: #4d3b00;
-    }
-
-    .retry-btn {
-      background: linear-gradient(135deg, #eaf8ff, #d1f0ff);
-      color: #1e4561;
-    }
-
-    .next-btn {
-      background: linear-gradient(135deg, #fff0cb, #ffd98f);
-      color: #473204;
-    }
+    .copy-btn { background: linear-gradient(135deg, #dfe8ff, #c7d9ff); color: #21314f; }
+    .share-btn { background: linear-gradient(135deg, #f0d5ff, #d9b5ff); color: #33214c; }
+    .image-save-btn { background: linear-gradient(135deg, #ffe7a3, #f7c95d); color: #4d3b00; }
 
     .loading {
       margin-top: 20px;
@@ -418,19 +343,12 @@
     }
 
     .ranking-section,
-    .history-section,
-    .seo-block {
+    .history-section {
       margin-top: 32px;
       padding: 20px;
       border: 1px solid rgba(255,255,255,.13);
       border-radius: 20px;
       background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
-    }
-
-    .ranking-section h3,
-    .history-section h3,
-    .seo-block h2 {
-      text-align: center;
     }
 
     .history-item,
@@ -469,116 +387,157 @@
       color: #5d4891;
     }
 
-    .keyword-list {
+    .ad-slot {
+      margin: 16px auto;
+      padding: 16px 18px;
+      color: #4a3b00;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.2);
+      background: var(--ad-bg);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.5);
+    }
+
+    .ad-slot strong {
+      display: block;
+      margin-bottom: 8px;
+      color: #7a5b00;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .ad-slot-content {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      color: #333;
+      font-weight: 700;
+    }
+
+    .ad-slot-badge {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff3b4;
+      color: #6b5200;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .monetize-box {
+      margin-top: 22px;
+      padding: 18px;
+      color: #333;
+      border: 1px solid #ead48b;
+      border-radius: 16px;
+      background: #fffbe8;
+    }
+
+    .monetize-box h3 {
+      color: #514277;
+      margin-bottom: 8px;
+    }
+
+    .monetize-box a {
+      display: block;
+      margin-top: 10px;
+      padding: 14px 16px;
+      color: #4d3b00;
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fff0a0, #f4d35e);
+    }
+
+    .affiliate-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 10px;
-      list-style: none;
-      padding: 0;
-      margin: 16px 0 0;
+      gap: 12px;
+      margin-top: 14px;
     }
 
-    .keyword-list li {
-      padding: 12px 10px;
-      color: #333;
-      text-align: center;
+    .affiliate-item {
+      padding: 14px;
+      border: 1px solid rgba(81,66,119,.15);
       border-radius: 12px;
-      background: rgba(255,255,255,.92);
-      font-weight: 600;
+      background: rgba(255,255,255,.9);
     }
 
-    .seo-block {
-      color: rgba(255,255,255,.93);
-      line-height: 1.9;
+    .affiliate-item h4 {
+      margin: 0 0 8px;
+      color: var(--purple);
+      font-size: 1rem;
     }
 
-    .seo-block h2 {
-      color: #fff1a8;
-      margin-bottom: 12px;
+    .affiliate-item p {
+      margin: 0 0 10px;
+      color: #555;
+      line-height: 1.6;
+      font-size: .92rem;
     }
 
-    .seo-block h3 {
-      color: #fff1a8;
-      margin-bottom: 10px;
+    .affiliate-item a {
+      display: inline-block;
+      color: var(--link);
+      text-decoration: underline;
+      font-weight: 700;
     }
 
-    .seo-block p {
-      margin: 0 0 12px;
+    .article-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
     }
 
-    .seo-note {
-      color: rgba(255,255,255,.72);
+    .article-item {
+      padding: 14px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.96);
+      color: #333;
+      box-shadow: 0 8px 17px rgba(18,20,50,.08);
+    }
+
+    .article-item h4 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: var(--purple);
+    }
+
+    .article-item p {
+      margin: 0 0 10px;
+      line-height: 1.6;
+      color: #555;
       font-size: .9rem;
     }
 
+    .article-item a {
+      color: var(--link);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .footer-note {
+      margin: 20px auto 40px;
+      width: min(92%, 900px);
+      color: rgba(255,255,255,.7);
+      text-align: center;
+      font-size: 12px;
+    }
+
     @media (max-width: 600px) {
-      h1 {
-        margin-top: 18px;
-        font-size: 1.8rem;
-      }
-
-      .home-description {
-        width: 94%;
-        font-size: 15px;
-      }
-
-      #home-screen,
-      .mode,
-      .content-block {
-        width: 94%;
-        padding: 16px 12px;
-      }
-
-      .card-list {
-        gap: 8px;
-      }
-
-      .home-card {
-        width: calc(50% - 5px);
-        min-height: 118px;
-        padding: 16px 8px;
-        border-radius: 16px;
-      }
-
-      .home-card h3 {
-        font-size: 1rem;
-      }
-
-      .home-card p {
-        font-size: .82rem;
-      }
-
-      .mode h2 {
-        font-size: 1.45rem;
-      }
-
-      .mode select,
-      .mode input {
-        font-size: 15px;
-      }
-
-      button {
-        width: 100%;
-        margin: 8px 0;
-        font-size: 15px;
-      }
-
-      .result-actions {
-        display: block;
-      }
-
-      .result-actions button {
-        width: 100%;
-        margin: 6px 0;
-      }
-
-      .result-section {
-        padding: 18px 15px;
-      }
-
-      .keyword-list {
-        grid-template-columns: 1fr 1fr;
-      }
+      h1 { font-size: 1.8rem; }
+      .home-description { width: 94%; font-size: 15px; }
+      #home-screen, .mode, .content-block { width: 94%; padding: 16px 12px; }
+      .card-list { gap: 8px; }
+      .home-card { width: calc(50% - 5px); min-height: 118px; padding: 16px 8px; border-radius: 16px; }
+      .home-card h3 { font-size: 1rem; }
+      .home-card p { font-size: .82rem; }
+      .result-actions { display: block; }
+      .result-actions button { width: 100%; margin: 6px 0; }
+      .affiliate-list, .article-list { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -600,44 +559,21 @@
     <h2>診断メニュー</h2>
 
     <div class="card-list">
-      <div class="home-card" onclick="openMode('uranai-mode')">
-        <h3>🔮 占い</h3>
-        <p>今日の運勢</p>
-      </div>
+      <div class="home-card" onclick="openMode('uranai-mode')"><h3>🔮 占い</h3><p>今日の運勢</p></div>
+      <div class="home-card" onclick="openMode('seikaku-mode')"><h3>🧠 性格診断</h3><p>10問でタイプ診断</p></div>
+      <div class="home-card" onclick="openMode('love-mode')"><h3>❤️ 恋愛タイプ診断</h3><p>恋愛の傾向</p></div>
+      <div class="home-card" onclick="openMode('match-mode')"><h3>💑 恋愛相性診断</h3><p>相性をチェック</p></div>
+      <div class="home-card" onclick="openMode('work-mode')"><h3>💼 仕事タイプ診断</h3><p>向いている働き方</p></div>
+      <div class="home-card" onclick="openMode('friend-mode')"><h3>👭 友達相性診断</h3><p>友達との相性</p></div>
+      <div class="home-card" onclick="openMode('stress-mode')"><h3>😵 ストレス診断</h3><p>今のストレス度</p></div>
+      <div class="home-card" onclick="openMode('mental-mode')"><h3>🌙 メンタル診断</h3><p>心の状態チェック</p></div>
+    </div>
 
-      <div class="home-card" onclick="openMode('seikaku-mode')">
-        <h3>🧠 性格診断</h3>
-        <p>10問でタイプ診断</p>
-      </div>
-
-      <div class="home-card" onclick="openMode('love-mode')">
-        <h3>❤️ 恋愛タイプ診断</h3>
-        <p>恋愛の傾向</p>
-      </div>
-
-      <div class="home-card" onclick="openMode('match-mode')">
-        <h3>💑 恋愛相性診断</h3>
-        <p>相性をチェック</p>
-      </div>
-
-      <div class="home-card" onclick="openMode('work-mode')">
-        <h3>💼 仕事タイプ診断</h3>
-        <p>向いている働き方</p>
-      </div>
-
-      <div class="home-card" onclick="openMode('friend-mode')">
-        <h3>👭 友達相性診断</h3>
-        <p>友達との相性</p>
-      </div>
-
-      <div class="home-card" onclick="openMode('stress-mode')">
-        <h3>😵 ストレス診断</h3>
-        <p>今のストレス度</p>
-      </div>
-
-      <div class="home-card" onclick="openMode('mental-mode')">
-        <h3>🌙 メンタル診断</h3>
-        <p>心の状態チェック</p>
+    <div class="ad-slot">
+      <strong>Advertisement</strong>
+      <div class="ad-slot-content">
+        <span class="ad-slot-badge">広告枠 1</span>
+        <span>ここにGoogle AdSenseやアフィリエイトバナーを配置</span>
       </div>
     </div>
 
@@ -649,7 +585,7 @@
     <div class="history-section">
       <h3>📚 前回の診断結果</h3>
       <div id="history-list">
-        <p class="history-empty">まだ診断結果がありません。</p>
+        <p>まだ診断結果がありません。</p>
       </div>
     </div>
   </div>
@@ -657,11 +593,9 @@
   <!-- 占い -->
   <div id="uranai-mode" class="mode">
     <h2>🔮 占い</h2>
-
-    <label for="name">名前</label>
+    <label>名前</label>
     <input id="name" type="text" placeholder="名前を入力してください" />
-
-    <label for="seiza">星座</label>
+    <label>星座</label>
     <select id="seiza">
       <option>おひつじ座</option>
       <option>おうし座</option>
@@ -676,8 +610,7 @@
       <option>みずがめ座</option>
       <option>うお座</option>
     </select>
-
-    <label for="blood">血液型</label>
+    <label>血液型</label>
     <select id="blood">
       <option>A</option>
       <option>B</option>
@@ -685,225 +618,146 @@
       <option>AB</option>
     </select>
 
-    <button class="diagnose-button" onclick="startUranai()">診断する</button>
+    <button onclick="startUranai()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>無料占いとは？</h3>
-      <p>
-        名前や星座、血液型を入力するだけで、今日の運勢を簡単に確認できます。
-        気分の参考にして、無理せず過ごすきっかけにしましょう。
-      </p>
-
+      <p>名前や星座、血液型を入力するだけで、今日の運勢を簡単に確認できます。気分の参考にして、無理せず過ごすきっかけにしましょう。</p>
       <div class="diagnosis-keywords">
-        <span>無料占い</span>
-        <span>今日の運勢</span>
-        <span>星座占い</span>
-        <span>運勢診断</span>
+        <span>無料占い</span><span>今日の運勢</span><span>星座占い</span><span>運勢診断</span>
       </div>
     </div>
 
     <div id="uranai-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
   <!-- 性格 -->
   <div id="seikaku-mode" class="mode">
     <h2>🧠 性格診断</h2>
-
     <div id="seikaku-questions"></div>
-
-    <button class="diagnose-button" onclick="startSeikaku()">診断する</button>
+    <button onclick="startSeikaku()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>無料性格診断で自分のタイプを知る</h3>
-      <p>
-        無料性格診断は、簡単な質問に答えるだけで、自分の性格タイプをチェックできるコンテンツです。
-        自分の傾向を理解したい人や、仕事や恋愛で自分の強みを知りたい人に向いています。
-      </p>
-
+      <p>無料性格診断は、簡単な質問に答えるだけで、自分の性格タイプをチェックできるコンテンツです。自分の傾向を理解したい人や、仕事や恋愛で自分の強みを知りたい人に向いています。</p>
       <div class="diagnosis-keywords">
-        <span>無料性格診断</span>
-        <span>性格タイプ</span>
-        <span>性格診断</span>
-        <span>自分のタイプ</span>
+        <span>無料性格診断</span><span>性格タイプ</span><span>性格診断</span><span>自分のタイプ</span>
       </div>
     </div>
 
     <div id="seikaku-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
   <!-- 恋愛 -->
   <div id="love-mode" class="mode">
     <h2>❤️ 恋愛タイプ診断</h2>
-
     <div id="love-questions"></div>
-
-    <button class="diagnose-button" onclick="startLove()">診断する</button>
+    <button onclick="startLove()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>恋愛診断で相手や自分の傾向を知る</h3>
-      <p>
-        恋愛診断や恋愛タイプ診断では、恋愛の特徴や好み、相手に対する姿勢を簡単に確認できます。
-        無料恋愛診断は、気になる相手との相性や自分の恋愛傾向を知るのに役立ちます。
-      </p>
-
+      <p>恋愛診断や恋愛タイプ診断では、恋愛の特徴や好み、相手に対する姿勢を簡単に確認できます。無料恋愛診断は、気になる相手との相性や自分の恋愛傾向を知るのに役立ちます。</p>
       <div class="diagnosis-keywords">
-        <span>恋愛タイプ診断</span>
-        <span>恋愛診断</span>
-        <span>恋愛傾向</span>
-        <span>無料恋愛診断</span>
+        <span>恋愛タイプ診断</span><span>恋愛診断</span><span>恋愛傾向</span><span>無料恋愛診断</span>
       </div>
     </div>
 
     <div id="love-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
   <!-- 相性 -->
   <div id="match-mode" class="mode">
     <h2>💑 恋愛相性診断</h2>
-
-    <label for="you-name">あなたの名前</label>
+    <label>あなたの名前</label>
     <input id="you-name" type="text" placeholder="あなたの名前" />
-
-    <label for="partner-name">相手の名前</label>
+    <label>相手の名前</label>
     <input id="partner-name" type="text" placeholder="相手の名前" />
-
-    <button class="diagnose-button" onclick="startMatch()">診断する</button>
+    <button onclick="startMatch()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>恋愛相性診断とは？</h3>
-      <p>
-        二人の相性を気軽にチェックできる診断です。
-        どんなところが合っているか、合っていないかを参考にすることができます。
-      </p>
-
+      <p>二人の相性を気軽にチェックできる診断です。どんなところが合っているか、合っていないかを参考にすることができます。</p>
       <div class="diagnosis-keywords">
-        <span>恋愛相性診断</span>
-        <span>相性診断</span>
-        <span>恋愛相性</span>
-        <span>カップル診断</span>
+        <span>恋愛相性診断</span><span>相性診断</span><span>恋愛相性</span><span>カップル診断</span>
       </div>
     </div>
 
     <div id="match-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
   <!-- 仕事 -->
   <div id="work-mode" class="mode">
     <h2>💼 仕事タイプ診断</h2>
-
     <div id="work-questions"></div>
-
-    <button class="diagnose-button" onclick="startWork()">診断する</button>
+    <button onclick="startWork()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>仕事診断で自分に合う働き方を見つける</h3>
-      <p>
-        仕事診断は、あなたがどんなタイプの仕事に向いているかを考えるための簡単なチェックです。
-        自由型、安定志向、リーダータイプなど、自分の働き方を考えるきっかけになります。
-      </p>
-
+      <p>仕事診断は、あなたがどんなタイプの仕事に向いているかを考えるための簡単なチェックです。自由型、安定志向、リーダータイプなど、自分の働き方を考えるきっかけになります。</p>
       <div class="diagnosis-keywords">
-        <span>仕事診断</span>
-        <span>仕事タイプ診断</span>
-        <span>向いている仕事</span>
-        <span>働き方診断</span>
+        <span>仕事診断</span><span>仕事タイプ診断</span><span>向いている仕事</span><span>働き方診断</span>
       </div>
     </div>
 
     <div id="work-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
   <!-- 友達 -->
   <div id="friend-mode" class="mode">
     <h2>👭 友達相性診断</h2>
-
     <div id="friend-questions"></div>
-
-    <button class="diagnose-button" onclick="startFriend()">診断する</button>
+    <button onclick="startFriend()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>友達相性診断とは？</h3>
-      <p>
-        友達との相性や会話のしやすさを簡単にチェックできます。
-        どんな人と話しやすいかを考えるきっかけになります。
-      </p>
-
+      <p>友達との相性や会話のしやすさを簡単にチェックできます。どんな人と話しやすいかを考えるきっかけになります。</p>
       <div class="diagnosis-keywords">
-        <span>友達相性診断</span>
-        <span>人間関係診断</span>
-        <span>相性診断</span>
-        <span>友達診断</span>
+        <span>友達相性診断</span><span>人間関係診断</span><span>相性診断</span><span>友達診断</span>
       </div>
     </div>
 
     <div id="friend-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
   <!-- ストレス -->
   <div id="stress-mode" class="mode">
     <h2>😵 ストレス診断</h2>
-
     <div id="stress-questions"></div>
-
-    <button class="diagnose-button" onclick="startStress()">診断する</button>
+    <button onclick="startStress()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>ストレス診断とは？</h3>
-      <p>
-        今の疲労や不安、イライラの状態を簡単に自分で確認できます。
-        あなたの心や体がどれくらい疲れているかを参考にしましょう。
-      </p>
-
+      <p>今の疲労や不安、イライラの状態を簡単に自分で確認できます。あなたの心や体がどれくらい疲れているかを参考にしましょう。</p>
       <div class="diagnosis-keywords">
-        <span>ストレス診断</span>
-        <span>疲れチェック</span>
-        <span>メンタル状態</span>
-        <span>心の疲れ</span>
+        <span>ストレス診断</span><span>疲れチェック</span><span>メンタル状態</span><span>心の疲れ</span>
       </div>
     </div>
 
     <div id="stress-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
   <!-- メンタル -->
   <div id="mental-mode" class="mode">
     <h2>🌙 メンタル診断</h2>
-
     <div id="mental-questions"></div>
-
-    <button class="diagnose-button" onclick="startMental()">診断する</button>
+    <button onclick="startMental()">診断する</button>
 
     <div class="diagnosis-info">
       <h3>メンタル診断とは？</h3>
-      <p>
-        気分の落ち込みや不安、やる気の状態を簡易的に確認できます。
-        つらい状態が続くときの参考として使ってください。
-      </p>
-
+      <p>気分の落ち込みや不安、やる気の状態を簡易的に確認できます。つらい状態が続くときの参考として使ってください。</p>
       <div class="diagnosis-keywords">
-        <span>メンタル診断</span>
-        <span>精神状態</span>
-        <span>不安チェック</span>
-        <span>心の状態</span>
+        <span>メンタル診断</span><span>精神状態</span><span>不安チェック</span><span>心の状態</span>
       </div>
     </div>
 
     <div id="mental-result"></div>
-
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
@@ -911,6 +765,82 @@
     const HISTORY_KEY = "diagnosisHistory";
     const RANKING_KEY = "diagnosisRanking";
     const MAX_HISTORY_COUNT = 10;
+
+    const MONETIZE_CONFIG = {
+      default: {
+        articleTitle: "おすすめ記事",
+        articles: [
+          { title: "性格診断の見方を知る", url: "https://example.com/article/character-diagnosis", desc: "自分のタイプをより深く理解するための記事です。" },
+          { title: "恋愛で不安になったときの対処法", url: "https://example.com/article/love-anxiety", desc: "恋愛で迷ったときに役立つ考え方です。" },
+          { title: "自分に合う仕事の選び方", url: "https://example.com/article/job-fit", desc: "仕事の向き不向きを考える際のポイントです。" }
+        ],
+        affiliate: [
+          { title: "恋愛相談を試してみる", url: "https://example.com/affiliate/love-consult", desc: "自分の恋愛観や相手との距離感を整理したい人におすすめです。" },
+          { title: "相性診断をさらに詳しく見る", url: "https://example.com/affiliate/match-detail", desc: "より深い診断や詳細な結果を知りたい人向けです。" },
+          { title: "占いを体験してみる", url: "https://example.com/affiliate/fortune", desc: "気になる運勢をチェックしたい人はこちら。" }
+        ]
+      },
+      seikaku: {
+        articleTitle: "性格診断の関連記事",
+        articles: [
+          { title: "自分の性格を知る方法", url: "https://example.com/article/know-personality", desc: "自分の特徴を整理したい人向けです。" },
+          { title: "MBTIっぽい性格診断の見方", url: "https://example.com/article/mbti-like", desc: "性格診断の解釈の仕方を知りましょう。" },
+          { title: "内向的な人の働き方", url: "https://example.com/article/introvert-work", desc: "仕事や人間関係を見えやすくする記事です。" }
+        ],
+        affiliate: [
+          { title: "性格分析を詳しく見る", url: "https://example.com/affiliate/personality-detail", desc: "より詳しい性格分析が知りたい方におすすめです。" },
+          { title: "自分の強みを見つける", url: "https://example.com/affiliate/strength", desc: "仕事や人間関係で活かせる強みを整理できます。" }
+        ]
+      },
+      love: {
+        articleTitle: "恋愛診断の関連記事",
+        articles: [
+          { title: "好きな人への距離感の取り方", url: "https://example.com/article/love-distance", desc: "恋愛で悩みやすい距離感の考え方です。" },
+          { title: "恋愛で不安になったときの対処法", url: "https://example.com/article/love-anxiety", desc: "思考がネガティブになるときの見直し方です。" },
+          { title: "一途な人の特徴", url: "https://example.com/article/loyal-love", desc: "恋愛のタイプ別の特徴を紹介します。" }
+        ],
+        affiliate: [
+          { title: "恋愛相談を試してみる", url: "https://example.com/affiliate/love-consult", desc: "恋愛の悩みをもっと詳しく整理したい方におすすめです。" },
+          { title: "相性診断を行う", url: "https://example.com/affiliate/match-test", desc: "相手との相性をより深く知りたい方へ。" }
+        ]
+      },
+      work: {
+        articleTitle: "仕事診断の関連記事",
+        articles: [
+          { title: "自分に合う仕事を見つける", url: "https://example.com/article/job-match", desc: "適職を探すときの視点です。" },
+          { title: "安定志向の人に向いている仕事", url: "https://example.com/article/stable-job", desc: "働き方の向き不向きを整理できます。" },
+          { title: "リーダータイプの特徴", url: "https://example.com/article/leader-type", desc: "組織で活かしやすいタイプを知れます。" }
+        ],
+        affiliate: [
+          { title: "転職サービスを比較する", url: "https://example.com/affiliate/job-search", desc: "転職やキャリア変更を考えている方向けです。" },
+          { title: "キャリア相談を受ける", url: "https://example.com/affiliate/career-consult", desc: "自分の強みを活かすキャリアの選択肢を探せます。" }
+        ]
+      },
+      stress: {
+        articleTitle: "ストレス診断の関連記事",
+        articles: [
+          { title: "ストレスを感じやすい人の特徴", url: "https://example.com/article/stress-signs", desc: "自分のストレスのパターンを知る記事です。" },
+          { title: "睡眠とストレスの関係", url: "https://example.com/article/sleep-stress", desc: "休息と疲れの関係について解説します。" },
+          { title: "疲れが取れないときのこと", url: "https://example.com/article/tiredness", desc: "心身の疲れを見直すきっかけになります。" }
+        ],
+        affiliate: [
+          { title: "休息やセルフケアを見直す", url: "https://example.com/affiliate/selfcare", desc: "生活習慣や休み方を整える情報です。" },
+          { title: "専門家のサポートを受ける", url: "https://example.com/affiliate/support", desc: "心のケアを考えている方向けです。" }
+        ]
+      },
+      uranai: {
+        articleTitle: "占いの関連記事",
+        articles: [
+          { title: "今日の運勢の活用法", url: "https://example.com/article/today-fortune", desc: "占いを前向きに活かす考え方です。" },
+          { title: "星座別の傾向", url: "https://example.com/article/zodiac-traits", desc: "星座ごとの特徴を知る記事です。" },
+          { title: "運気を上げる小さな習慣", url: "https://example.com/article/fortune-habits", desc: "一日を気持ちよく過ごすヒントです。" }
+        ],
+        affiliate: [
+          { title: "占い師に相談する", url: "https://example.com/affiliate/fortune-line", desc: "より詳しい運勢や悩み相談に向いています。" },
+          { title: "恋愛運を見てみる", url: "https://example.com/affiliate/love-fortune", desc: "恋愛や人間関係の運勢を見てみましょう。" }
+        ]
+      }
+    };
 
     const questionData = {
       seikaku: [
@@ -1028,7 +958,7 @@
       if (!list) return;
 
       if (history.length === 0) {
-        list.innerHTML = '<p class="history-empty">まだ診断結果がありません。</p>';
+        list.innerHTML = "<p>まだ診断結果がありません。</p>";
         return;
       }
 
@@ -1096,6 +1026,46 @@
       return url.toString();
     }
 
+    function renderMonetizeBlock(category, resultSummary) {
+      const config = MONETIZE_CONFIG[category] || MONETIZE_CONFIG.default;
+      const articleHtml = config.articles.map(item => `
+        <div class="article-item">
+          <h4>${escapeHTML(item.title)}</h4>
+          <p>${escapeHTML(item.desc)}</p>
+          <a href="${item.url}" target="_blank" rel="noopener noreferrer">記事を見る</a>
+        </div>
+      `).join("");
+
+      const affiliateHtml = config.affiliate.map(item => `
+        <div class="affiliate-item">
+          <h4>${escapeHTML(item.title)}</h4>
+          <p>${escapeHTML(item.desc)}</p>
+          <a href="${item.url}" target="_blank" rel="noopener noreferrer">詳しく見る</a>
+        </div>
+      `).join("");
+
+      return `
+        <div class="ad-slot">
+          <strong>Advertisement</strong>
+          <div class="ad-slot-content">
+            <span class="ad-slot-badge">広告枠 2</span>
+            <span>ここにAdSenseや提携バナーを配置</span>
+          </div>
+        </div>
+
+        <div class="monetize-box">
+          <h3>${escapeHTML(config.articleTitle)}</h3>
+          <div class="article-list">
+            ${articleHtml}
+          </div>
+
+          <div class="affiliate-list" style="margin-top:18px;">
+            ${affiliateHtml}
+          </div>
+        </div>
+      `;
+    }
+
     async function copyResult(text) {
       try {
         await navigator.clipboard.writeText(text);
@@ -1108,10 +1078,7 @@
     async function shareResult(text) {
       if (navigator.share) {
         try {
-          await navigator.share({
-            title: "診断結果",
-            text
-          });
+          await navigator.share({ title: "診断結果", text });
           return;
         } catch {
           return;
@@ -1131,7 +1098,6 @@
         link.download = `${title}.png`;
         link.href = canvas.toDataURL("image/png");
         link.click();
-
         alert("画像として保存しました！");
       } catch {
         alert("画像の保存に失敗しました。");
@@ -1142,19 +1108,7 @@
       const target = document.getElementById(targetId);
       const resultURL = createResultURL(category, resultCode);
 
-      const shareText = `${title}
-${summary}
-
-${detail}
-
-💡 アドバイス
-${advice}
-
-ラッキーカラー：${luckyColor}
-ラッキーアイテム：${luckyItem}
-
-結果URL：
-${resultURL}`;
+      const shareText = `${title}\n${summary}\n\n${detail}\n\n💡 アドバイス\n${advice}\n\nラッキーカラー：${luckyColor}\nラッキーアイテム：${luckyItem}\n\n結果URL：\n${resultURL}`;
 
       target.innerHTML = `
         <div class="result-section">
@@ -1180,6 +1134,8 @@ ${resultURL}`;
             <button class="share-btn" type="button">📤 共有</button>
             <button class="image-save-btn" type="button">🖼️ 画像保存</button>
           </div>
+
+          ${renderMonetizeBlock(category, summary)}
         </div>
       `;
 
@@ -1196,33 +1152,20 @@ ${resultURL}`;
       const mode = document.getElementById(id);
 
       home.style.display = "none";
-
-      document.querySelectorAll(".mode").forEach(item => {
-        item.style.display = "none";
-      });
-
+      document.querySelectorAll(".mode").forEach(item => item.style.display = "none");
       mode.style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function backHome() {
-      document.querySelectorAll(".mode").forEach(item => {
-        item.style.display = "none";
-      });
-
+      document.querySelectorAll(".mode").forEach(item => item.style.display = "none");
       document.getElementById("home-screen").style.display = "block";
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function startLoading(targetId, message, callback) {
       const target = document.getElementById(targetId);
-
-      target.innerHTML = `
-        <div class="loading">
-          ✨ ${message}
-        </div>
-      `;
-
+      target.innerHTML = `<div class="loading">✨ ${message}</div>`;
       setTimeout(callback, 900);
     }
 
@@ -1245,7 +1188,7 @@ ${resultURL}`;
           "🔮 占い",
           `${name}さんの今日の運勢：${luck}`,
           `${name}さんの今日の運勢は「${luck}」です。`,
-          "占い",
+          "uranai",
           "焦らず、自分のペースを大切にしましょう。",
           "ブルー",
           "イヤホン",
@@ -1266,14 +1209,11 @@ ${resultURL}`;
 
         showResult(
           "seikaku-result",
-          `
-            <h3>あなたの性格タイプ</h3>
-            <p><strong>${type}</strong></p>
-          `,
+          `<h3>あなたの性格タイプ</h3><p><strong>${type}</strong></p>`,
           "🧠 性格診断",
           type,
           `あなたの性格タイプは「${type}」です。`,
-          "性格診断",
+          "seikaku",
           "周囲に合わせすぎず、自分の感覚を大切にすると魅力が伸びます。",
           "ブルー",
           "ノート",
@@ -1294,14 +1234,11 @@ ${resultURL}`;
 
         showResult(
           "love-result",
-          `
-            <h3>あなたの恋愛タイプ</h3>
-            <p><strong>${type}</strong></p>
-          `,
+          `<h3>あなたの恋愛タイプ</h3><p><strong>${type}</strong></p>`,
           "❤️ 恋愛タイプ診断",
           type,
           `あなたの恋愛タイプは「${type}」です。`,
-          "恋愛診断",
+          "love",
           "無理に自分を変えず、素直な気持ちを伝えることが大切です。",
           "ピンク",
           "メモ帳",
@@ -1318,14 +1255,11 @@ ${resultURL}`;
 
         showResult(
           "match-result",
-          `
-            <h3>${escapeHTML(you)}さんと${escapeHTML(partner)}さんの相性</h3>
-            <p><strong>相性：${percent}%</strong></p>
-          `,
+          `<h3>${escapeHTML(you)}さんと${escapeHTML(partner)}さんの相性</h3><p><strong>相性：${percent}%</strong></p>`,
           "💑 恋愛相性診断",
           `${you}さんと${partner}さんの相性：${percent}%`,
           `${you}さんと${partner}さんの相性は${percent}%です。`,
-          "相性診断",
+          "match",
           "お互いの違いを楽しむことが、関係を深める鍵になりそうです。",
           "ラベンダー",
           "手紙",
@@ -1346,14 +1280,11 @@ ${resultURL}`;
 
         showResult(
           "work-result",
-          `
-            <h3>あなたの仕事タイプ</h3>
-            <p><strong>${type}</strong></p>
-          `,
+          `<h3>あなたの仕事タイプ</h3><p><strong>${type}</strong></p>`,
           "💼 仕事タイプ診断",
           type,
           `あなたの仕事タイプは「${type}」です。`,
-          "仕事診断",
+          "work",
           "得意なことを一つずつ伸ばしていくと、成果が出やすくなります。",
           "黄緑",
           "ノートPC",
@@ -1369,14 +1300,11 @@ ${resultURL}`;
 
         showResult(
           "friend-result",
-          `
-            <h3>友達との相性</h3>
-            <p><strong>相性：${percent}%</strong></p>
-          `,
+          `<h3>友達との相性</h3><p><strong>相性：${percent}%</strong></p>`,
           "👭 友達相性診断",
           `友達との相性：${percent}%`,
           `友達との相性は${percent}%です。`,
-          "友達相性診断",
+          "friend",
           "相手を理解しようとする姿勢が友情を深める鍵になります。",
           "グリーン",
           "カフェ",
@@ -1397,14 +1325,11 @@ ${resultURL}`;
 
         showResult(
           "stress-result",
-          `
-            <h3>ストレス診断結果</h3>
-            <p><strong>${level}</strong></p>
-          `,
+          `<h3>ストレス診断結果</h3><p><strong>${level}</strong></p>`,
           "😵 ストレス診断",
           level,
           `ストレス診断結果は「${level}」です。`,
-          "ストレス診断",
+          "stress",
           "無理をせず、睡眠や休憩の時間を意識してください。",
           "ホワイト",
           "リラックスグッズ",
@@ -1425,14 +1350,11 @@ ${resultURL}`;
 
         showResult(
           "mental-result",
-          `
-            <h3>メンタル診断結果</h3>
-            <p><strong>${level}</strong></p>
-          `,
+          `<h3>メンタル診断結果</h3><p><strong>${level}</strong></p>`,
           "🌙 メンタル診断",
           level,
           `メンタル診断結果は「${level}」です。`,
-          "メンタル診断",
+          "mental",
           "つらい状態が続く場合は、一人で抱え込まず身近な人に相談してください。",
           "パープル",
           "温かい飲み物",
