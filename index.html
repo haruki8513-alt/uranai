@@ -11,6 +11,23 @@
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#0b0f2f" />
 
+  <meta property="og:title" content="無料診断アプリ｜性格診断・恋愛診断・相性診断・占い" />
+  <meta property="og:description" content="無料でできる性格診断、恋愛タイプ診断、恋愛相性診断、仕事診断、ストレス診断、メンタル診断、今日の占いを楽しめる診断アプリです。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com/" />
+  <meta property="og:image" content="https://example.com/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
   <style>
@@ -19,7 +36,6 @@
       --purple: #514277;
       --dark: #0b0f2f;
       --text-dark: #333;
-      --soft-bg: rgba(255,255,255,0.08);
       --ad-bg: #fff9e7;
       --link: #2d57c9;
     }
@@ -48,11 +64,7 @@
       text-shadow: 0 0 12px rgba(255,230,120,.35), 0 4px 18px rgba(0,0,0,.3);
     }
 
-    h2 {
-      margin: 0 0 20px;
-      text-align: center;
-    }
-
+    h2 { margin: 0 0 20px; text-align: center; }
     h3 { margin-top: 0; }
 
     .stars, .twinkling, .clouds {
@@ -84,9 +96,9 @@
       width: min(900px, 92%);
       margin: 14px auto 28px;
       text-align: center;
-      line-height: 1.8;
       color: rgba(255,255,255,.95);
       font-size: 18px;
+      line-height: 1.8;
     }
 
     #home-screen, .mode, .content-block {
@@ -206,7 +218,7 @@
       margin-top: 18px;
       padding: 18px;
       line-height: 1.8;
-      color: rgba(255,255,255,.92);
+      color: rgba(255,255,255,0.92);
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 16px;
       background: rgba(255,255,255,.06);
@@ -602,7 +614,6 @@
     </div>
   </div>
 
-  <!-- 占い -->
   <div id="uranai-mode" class="mode">
     <h2>🔮 占い</h2>
     <label>名前</label>
@@ -644,7 +655,6 @@
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
-  <!-- 性格 -->
   <div id="seikaku-mode" class="mode">
     <h2>🧠 性格診断</h2>
     <div id="seikaku-questions"></div>
@@ -662,7 +672,6 @@
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
-  <!-- 恋愛 -->
   <div id="love-mode" class="mode">
     <h2>❤️ 恋愛タイプ診断</h2>
     <div id="love-questions"></div>
@@ -680,7 +689,6 @@
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
-  <!-- 相性 -->
   <div id="match-mode" class="mode">
     <h2>💑 恋愛相性診断</h2>
     <label>あなたの名前</label>
@@ -701,7 +709,6 @@
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
-  <!-- 仕事 -->
   <div id="work-mode" class="mode">
     <h2>💼 仕事タイプ診断</h2>
     <div id="work-questions"></div>
@@ -719,7 +726,6 @@
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
-  <!-- 友達 -->
   <div id="friend-mode" class="mode">
     <h2>👭 友達相性診断</h2>
     <div id="friend-questions"></div>
@@ -737,7 +743,6 @@
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
-  <!-- ストレス -->
   <div id="stress-mode" class="mode">
     <h2>😵 ストレス診断</h2>
     <div id="stress-questions"></div>
@@ -755,7 +760,6 @@
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
 
-  <!-- メンタル -->
   <div id="mental-mode" class="mode">
     <h2>🌙 メンタル診断</h2>
     <div id="mental-questions"></div>
