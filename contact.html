@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>お問い合わせ</title>
+  <meta name="robots" content="noindex,follow" />
+  <style>
+    body {
+      margin: 0;
+      padding: 32px 20px;
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      background: linear-gradient(180deg, #0b0f2f, #101a44);
+      color: white;
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.2);
+    }
+    input, textarea {
+      width: 100%;
+      padding: 14px 12px;
+      margin-top: 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.92);
+      color: #222;
+      font: inherit;
+    }
+    button {
+      margin-top: 18px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 12px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      background: linear-gradient(135deg, #fff0a0 0%, #f4d35e 48%, #e7b941 100%);
+      color: #4d3b00;
+    }
+    a { color: #dfe6ff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>お問い合わせ</h1>
+
+    <p>ご質問、提携希望、広告掲載希望、サイト改善のご意見などは、以下フォームからお問い合わせください。</p>
+
+    <form action="https://formspree.io/f/your-form-id" method="POST">
+      <label>
+        お名前
+        <input type="text" name="name" placeholder="山田 太郎" required />
+      </label>
+
+      <label>
+        メールアドレス
+        <input type="email" name="email" placeholder="example@email.com" required />
+      </label>
+
+      <label>
+        お問い合わせ内容
+        <textarea name="message" rows="8" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+      </label>
+
+      <button type="submit">送信する</button>
+    </form>
+
+    <p style="margin-top: 20px;">
+      <a href="/">トップへ戻る</a>
+    </p>
+  </div>
+</body>
+</html>
