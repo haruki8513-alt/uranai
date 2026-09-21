@@ -123,6 +123,7 @@
       width: min(92%, 1000px);
       margin: 18px auto 36px;
       padding: 20px 22px;
+      border-radius: 22px;
     }
 
     .card-list {
@@ -409,7 +410,7 @@
 
     .ranking-section h3,
     .history-section h3,
-    .seo-block h3 {
+    .seo-block h2 {
       text-align: center;
     }
 
@@ -472,22 +473,23 @@
       line-height: 1.9;
     }
 
-    .seo-block h3 {
+    .seo-block h2 {
       color: #fff1a8;
       margin-bottom: 12px;
+    }
+
+    .seo-block h3 {
+      color: #fff1a8;
+      margin-bottom: 10px;
     }
 
     .seo-block p {
       margin: 0 0 12px;
     }
 
-    .shared-result-notice {
-      width: min(92%, 560px);
-      margin: 20px auto;
-      padding: 14px;
-      text-align: center;
-      border-radius: 14px;
-      background: rgba(255,255,255,.12);
+    .seo-note {
+      color: rgba(255,255,255,.72);
+      font-size: .9rem;
     }
 
     @media (max-width: 600px) {
@@ -575,8 +577,6 @@
     1分で結果がわかるので、気になる自分や相手をチェックしてみましょう。
   </div>
 
-  <div id="shared-result-container"></div>
-
   <div id="home-screen">
     <h2>診断メニュー</h2>
 
@@ -633,37 +633,6 @@
         <p class="history-empty">まだ診断結果がありません。</p>
       </div>
     </div>
-  </div>
-
-  <div class="content-block seo-block">
-    <h3>無料性格診断で自分のタイプを知る</h3>
-    <p>
-      無料性格診断は、簡単な質問に答えるだけで、自分の性格タイプをチェックできるコンテンツです。
-      自分の傾向を理解したい人や、仕事や恋愛で自分の強みを知りたい人に向いています。
-    </p>
-
-    <h3>恋愛診断で相手や自分の傾向を知る</h3>
-    <p>
-      恋愛診断や恋愛タイプ診断では、恋愛の特徴や好み、相手に対する姿勢を簡単に確認できます。
-      無料恋愛診断は、気になる相手との相性や自分の恋愛傾向を知るのに役立ちます。
-    </p>
-
-    <h3>仕事診断で自分に合う働き方を見つける</h3>
-    <p>
-      仕事診断は、あなたがどんなタイプの仕事に向いているかを考えるための簡単なチェックです。
-      自由型、安定志向、リーダータイプなど、自分の働き方を考えるきっかけになります。
-    </p>
-
-    <ul class="keyword-list">
-      <li>無料性格診断</li>
-      <li>恋愛タイプ診断</li>
-      <li>恋愛相性診断</li>
-      <li>仕事診断</li>
-      <li>ストレス診断</li>
-      <li>メンタル診断</li>
-      <li>無料占い</li>
-      <li>今日の運勢</li>
-    </ul>
   </div>
 
   <!-- 占い -->
@@ -862,6 +831,62 @@
 
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
+
+  <!-- SEO説明・キーワード -->
+  <section class="content-block seo-block">
+    <h2>無料診断・占いについて</h2>
+
+    <h3>無料性格診断で自分のタイプを知る</h3>
+    <p>
+      無料性格診断は、簡単な質問に答えるだけで、
+      自分の性格タイプをチェックできるコンテンツです。
+      自分の傾向を理解したい人や、仕事や恋愛で自分の強みを知りたい人に向いています。
+    </p>
+
+    <h3>恋愛診断で相手や自分の傾向を知る</h3>
+    <p>
+      恋愛診断や恋愛タイプ診断では、恋愛の特徴や好み、
+      相手に対する姿勢を簡単に確認できます。
+      無料恋愛診断は、気になる相手との相性や自分の恋愛傾向を知るのに役立ちます。
+    </p>
+
+    <h3>仕事診断で自分に合う働き方を見つける</h3>
+    <p>
+      仕事診断は、あなたがどんなタイプの仕事に向いているかを考えるための簡単なチェックです。
+      自由型、安定志向、リーダータイプなど、
+      自分の働き方を考えるきっかけになります。
+    </p>
+
+    <h3>ストレス診断・メンタル診断について</h3>
+    <p>
+      ストレス診断やメンタル診断では、現在の疲れや不安、
+      気分の状態を簡単にチェックできます。
+      結果は自分の状態を振り返るための参考としてご利用ください。
+    </p>
+
+    <h3>無料占いで今日の運勢をチェック</h3>
+    <p>
+      星座や血液型を使って、今日の運勢を気軽に確認できます。
+      占い結果を参考に、今日を楽しく過ごすためのヒントを見つけてみましょう。
+    </p>
+
+    <ul class="keyword-list">
+      <li>無料性格診断</li>
+      <li>恋愛タイプ診断</li>
+      <li>恋愛相性診断</li>
+      <li>仕事診断</li>
+      <li>ストレス診断</li>
+      <li>メンタル診断</li>
+      <li>無料占い</li>
+      <li>今日の運勢</li>
+    </ul>
+
+    <p class="seo-note">
+      ※この診断結果はエンターテインメント目的の簡易チェックです。
+      医学的・心理学的な診断ではありません。
+      つらい状態が続く場合は、家族や専門機関に相談してください。
+    </p>
+  </section>
 
   <script>
     const HISTORY_KEY = "diagnosisHistory";
@@ -1407,19 +1432,6 @@ ${resultURL}`;
 
       renderHistory();
       renderRanking();
-
-      const params = new URLSearchParams(window.location.search);
-      const result = params.get("result");
-      const code = params.get("code");
-
-      if (result && code) {
-        const container = document.getElementById("shared-result-container");
-        container.innerHTML = `
-          <div class="shared-result-notice">
-            🔗 共有された診断結果を表示しています
-          </div>
-        `;
-      }
     });
   </script>
 </body>
