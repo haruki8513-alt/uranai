@@ -123,7 +123,6 @@
       width: min(92%, 1000px);
       margin: 18px auto 36px;
       padding: 20px 22px;
-      border-radius: 22px;
     }
 
     .card-list {
@@ -231,24 +230,44 @@
       background: linear-gradient(135deg, #d7d9ff, #aeb5ed);
     }
 
-    .mode-note {
+    .diagnosis-info {
       margin-top: 18px;
-      padding: 16px 18px;
-      border-radius: 14px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(255,255,255,.92);
+      padding: 18px;
+      color: rgba(255,255,255,0.92);
       line-height: 1.8;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.06);
     }
 
-    .mode-note h3 {
-      margin: 0 0 10px;
+    .diagnosis-info h3 {
+      margin: 0 0 8px;
       color: #fff1a8;
       font-size: 1.05rem;
     }
 
-    .mode-note p {
-      margin: 0;
+    .diagnosis-info p {
+      margin: 0 0 18px;
+    }
+
+    .diagnosis-info p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    .diagnosis-keywords {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .diagnosis-keywords span {
+      padding: 8px 12px;
+      color: #4b4380;
+      font-size: 13px;
+      font-weight: bold;
+      border-radius: 999px;
+      background: #fff;
     }
 
     .result-section {
@@ -666,14 +685,21 @@
       <option>AB</option>
     </select>
 
-    <button onclick="startUranai()">診断する</button>
+    <button class="diagnose-button" onclick="startUranai()">診断する</button>
 
-    <div class="mode-note">
+    <div class="diagnosis-info">
       <h3>無料占いとは？</h3>
       <p>
         名前や星座、血液型を入力するだけで、今日の運勢を簡単に確認できます。
         気分の参考にして、無理せず過ごすきっかけにしましょう。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>無料占い</span>
+        <span>今日の運勢</span>
+        <span>星座占い</span>
+        <span>運勢診断</span>
+      </div>
     </div>
 
     <div id="uranai-result"></div>
@@ -687,14 +713,21 @@
 
     <div id="seikaku-questions"></div>
 
-    <button onclick="startSeikaku()">診断する</button>
+    <button class="diagnose-button" onclick="startSeikaku()">診断する</button>
 
-    <div class="mode-note">
-      <h3>無料性格診断とは？</h3>
+    <div class="diagnosis-info">
+      <h3>無料性格診断で自分のタイプを知る</h3>
       <p>
-        簡単な質問に答えるだけで、自分の性格タイプをチェックできます。
-        仕事や恋愛、人間関係の傾向を知りたい人におすすめです。
+        無料性格診断は、簡単な質問に答えるだけで、自分の性格タイプをチェックできるコンテンツです。
+        自分の傾向を理解したい人や、仕事や恋愛で自分の強みを知りたい人に向いています。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>無料性格診断</span>
+        <span>性格タイプ</span>
+        <span>性格診断</span>
+        <span>自分のタイプ</span>
+      </div>
     </div>
 
     <div id="seikaku-result"></div>
@@ -708,14 +741,21 @@
 
     <div id="love-questions"></div>
 
-    <button onclick="startLove()">診断する</button>
+    <button class="diagnose-button" onclick="startLove()">診断する</button>
 
-    <div class="mode-note">
-      <h3>無料恋愛診断とは？</h3>
+    <div class="diagnosis-info">
+      <h3>恋愛診断で相手や自分の傾向を知る</h3>
       <p>
-        自分の恋愛傾向や相手との距離感を知りたい人向けの簡単診断です。
-        一途なタイプか、慎重なタイプかを参考にできます。
+        恋愛診断や恋愛タイプ診断では、恋愛の特徴や好み、相手に対する姿勢を簡単に確認できます。
+        無料恋愛診断は、気になる相手との相性や自分の恋愛傾向を知るのに役立ちます。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>恋愛タイプ診断</span>
+        <span>恋愛診断</span>
+        <span>恋愛傾向</span>
+        <span>無料恋愛診断</span>
+      </div>
     </div>
 
     <div id="love-result"></div>
@@ -733,14 +773,21 @@
     <label for="partner-name">相手の名前</label>
     <input id="partner-name" type="text" placeholder="相手の名前" />
 
-    <button onclick="startMatch()">診断する</button>
+    <button class="diagnose-button" onclick="startMatch()">診断する</button>
 
-    <div class="mode-note">
+    <div class="diagnosis-info">
       <h3>恋愛相性診断とは？</h3>
       <p>
         二人の相性を気軽にチェックできる診断です。
         どんなところが合っているか、合っていないかを参考にすることができます。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>恋愛相性診断</span>
+        <span>相性診断</span>
+        <span>恋愛相性</span>
+        <span>カップル診断</span>
+      </div>
     </div>
 
     <div id="match-result"></div>
@@ -754,14 +801,21 @@
 
     <div id="work-questions"></div>
 
-    <button onclick="startWork()">診断する</button>
+    <button class="diagnose-button" onclick="startWork()">診断する</button>
 
-    <div class="mode-note">
-      <h3>仕事診断とは？</h3>
+    <div class="diagnosis-info">
+      <h3>仕事診断で自分に合う働き方を見つける</h3>
       <p>
-        あなたに向いている働き方や仕事のタイプを簡単に確認できます。
-        安定志向か、自由型か、リーダー向きかを参考にできます。
+        仕事診断は、あなたがどんなタイプの仕事に向いているかを考えるための簡単なチェックです。
+        自由型、安定志向、リーダータイプなど、自分の働き方を考えるきっかけになります。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>仕事診断</span>
+        <span>仕事タイプ診断</span>
+        <span>向いている仕事</span>
+        <span>働き方診断</span>
+      </div>
     </div>
 
     <div id="work-result"></div>
@@ -775,14 +829,21 @@
 
     <div id="friend-questions"></div>
 
-    <button onclick="startFriend()">診断する</button>
+    <button class="diagnose-button" onclick="startFriend()">診断する</button>
 
-    <div class="mode-note">
+    <div class="diagnosis-info">
       <h3>友達相性診断とは？</h3>
       <p>
         友達との相性や会話のしやすさを簡単にチェックできます。
         どんな人と話しやすいかを考えるきっかけになります。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>友達相性診断</span>
+        <span>人間関係診断</span>
+        <span>相性診断</span>
+        <span>友達診断</span>
+      </div>
     </div>
 
     <div id="friend-result"></div>
@@ -796,14 +857,21 @@
 
     <div id="stress-questions"></div>
 
-    <button onclick="startStress()">診断する</button>
+    <button class="diagnose-button" onclick="startStress()">診断する</button>
 
-    <div class="mode-note">
+    <div class="diagnosis-info">
       <h3>ストレス診断とは？</h3>
       <p>
         今の疲労や不安、イライラの状態を簡単に自分で確認できます。
         あなたの心や体がどれくらい疲れているかを参考にしましょう。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>ストレス診断</span>
+        <span>疲れチェック</span>
+        <span>メンタル状態</span>
+        <span>心の疲れ</span>
+      </div>
     </div>
 
     <div id="stress-result"></div>
@@ -817,76 +885,27 @@
 
     <div id="mental-questions"></div>
 
-    <button onclick="startMental()">診断する</button>
+    <button class="diagnose-button" onclick="startMental()">診断する</button>
 
-    <div class="mode-note">
+    <div class="diagnosis-info">
       <h3>メンタル診断とは？</h3>
       <p>
         気分の落ち込みや不安、やる気の状態を簡易的に確認できます。
         つらい状態が続くときの参考として使ってください。
       </p>
+
+      <div class="diagnosis-keywords">
+        <span>メンタル診断</span>
+        <span>精神状態</span>
+        <span>不安チェック</span>
+        <span>心の状態</span>
+      </div>
     </div>
 
     <div id="mental-result"></div>
 
     <button class="back-button" onclick="backHome()">ホームに戻る</button>
   </div>
-
-  <!-- SEO説明・キーワード -->
-  <section class="content-block seo-block">
-    <h2>無料診断・占いについて</h2>
-
-    <h3>無料性格診断で自分のタイプを知る</h3>
-    <p>
-      無料性格診断は、簡単な質問に答えるだけで、
-      自分の性格タイプをチェックできるコンテンツです。
-      自分の傾向を理解したい人や、仕事や恋愛で自分の強みを知りたい人に向いています。
-    </p>
-
-    <h3>恋愛診断で相手や自分の傾向を知る</h3>
-    <p>
-      恋愛診断や恋愛タイプ診断では、恋愛の特徴や好み、
-      相手に対する姿勢を簡単に確認できます。
-      無料恋愛診断は、気になる相手との相性や自分の恋愛傾向を知るのに役立ちます。
-    </p>
-
-    <h3>仕事診断で自分に合う働き方を見つける</h3>
-    <p>
-      仕事診断は、あなたがどんなタイプの仕事に向いているかを考えるための簡単なチェックです。
-      自由型、安定志向、リーダータイプなど、
-      自分の働き方を考えるきっかけになります。
-    </p>
-
-    <h3>ストレス診断・メンタル診断について</h3>
-    <p>
-      ストレス診断やメンタル診断では、現在の疲れや不安、
-      気分の状態を簡単にチェックできます。
-      結果は自分の状態を振り返るための参考としてご利用ください。
-    </p>
-
-    <h3>無料占いで今日の運勢をチェック</h3>
-    <p>
-      星座や血液型を使って、今日の運勢を気軽に確認できます。
-      占い結果を参考に、今日を楽しく過ごすためのヒントを見つけてみましょう。
-    </p>
-
-    <ul class="keyword-list">
-      <li>無料性格診断</li>
-      <li>恋愛タイプ診断</li>
-      <li>恋愛相性診断</li>
-      <li>仕事診断</li>
-      <li>ストレス診断</li>
-      <li>メンタル診断</li>
-      <li>無料占い</li>
-      <li>今日の運勢</li>
-    </ul>
-
-    <p class="seo-note">
-      ※この診断結果はエンターテインメント目的の簡易チェックです。
-      医学的・心理学的な診断ではありません。
-      つらい状態が続く場合は、家族や専門機関に相談してください。
-    </p>
-  </section>
 
   <script>
     const HISTORY_KEY = "diagnosisHistory";
