@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>恋愛タイプ診断｜無料で自分の恋愛傾向をチェック</title>
+  <meta
+    name="description"
+    content="恋愛タイプ診断を無料で受けられます。自分の恋愛傾向や慎重さ、積極さがわかる簡単な10問診断です。"
+  />
+  <meta property="og:title" content="恋愛タイプ診断｜無料で自分の恋愛傾向をチェック" />
+  <meta property="og:description" content="無料で簡単にできる恋愛タイプ診断。自分の恋愛傾向や相手との距離感を知る参考にできます。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://haruki8513-alt.github.io/uranai/love.html" />
+  <meta property="og:image" content="https://haruki8513-alt.github.io/uranai/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://haruki8513-alt.github.io/uranai/love.html" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      background: linear-gradient(180deg, #0b0f2f 0%, #101a44 100%);
+      color: white;
+      line-height: 1.8;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 18px 80px;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 12px;
+    }
+    .intro {
+      margin-bottom: 28px;
+      color: rgba(255,255,255,0.9);
+    }
+    .panel {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+    }
+    label {
+      display: block;
+      margin: 20px 0 8px;
+      font-weight: bold;
+    }
+    select {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: #fff;
+      color: #222;
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+    button {
+      margin-top: 18px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fff0a0 0%, #f4d35e 48%, #e7b941 100%);
+      color: #4d3b00;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .result-box {
+      margin-top: 28px;
+      background: #fff;
+      color: #333;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.14);
+    }
+    .result-box h2 {
+      margin-top: 0;
+      color: #514277;
+    }
+    .related {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .card {
+      background: rgba(255,255,255,0.96);
+      color: #333;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 12px 18px rgba(0,0,0,0.08);
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      color: #514277;
+      font-size: 1rem;
+    }
+    .card p {
+      margin: 0 0 10px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    .card a {
+      color: #2d57c9;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .ad {
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px dashed rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: #fff9e7;
+      color: #4a3b00;
+      font-weight: bold;
+    }
+    .danger {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+    }
+    a {
+      color: #dfe6ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>恋愛タイプ診断</h1>
+    <p class="intro">
+      10問に答えるだけで、自分の恋愛の傾向や恋愛スタイルを知ることができます。<br>
+      恋愛の強みや弱みを知り、相手との距離感や自分の価値観を整理する参考にしてください。
+    </p>
+
+    <div class="panel">
+      <label for="q1">1. 好きになると一途になりやすいですか？</label>
+      <select id="q1">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q2">2. 相手の気持ちを考えすぎることが多いですか？</label>
+      <select id="q2">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q3">3. 恋愛では慎重になりやすいですか？</label>
+      <select id="q3">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q4">4. 好きになるとすぐ行動したくなりますか？</label>
+      <select id="q4">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q5">5. 相手に合わせすぎてしまうことはありますか？</label>
+      <select id="q5">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q6">6. 恋愛で不安になりやすいですか？</label>
+      <select id="q6">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q7">7. 好きな人には積極的に話しかけますか？</label>
+      <select id="q7">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q8">8. 恋愛で相手に求めるものが多いですか？</label>
+      <select id="q8">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q9">9. 恋愛が長続きしやすいと思いますか？</label>
+      <select id="q9">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <label for="q10">10. 恋愛で自分を出しやすいですか？</label>
+      <select id="q10">
+        <option value="1">はい</option>
+        <option value="0">いいえ</option>
+      </select>
+
+      <button type="button" onclick="calculateLove()">診断する</button>
+    </div>
+
+    <div id="result"></div>
+
+    <div class="ad">
+      ここに広告枠や提携リンクを入れる
+    </div>
+
+    <div class="panel">
+      <h2>関連記事</h2>
+      <div class="related">
+        <div class="card">
+          <h3>恋愛で不安になったときの対処法</h3>
+          <p>恋愛で思考がネガティブになるときの考え方です。</p>
+          <a href="#">記事を見る</a>
+        </div>
+        <div class="card">
+          <h3>好きな人への距離感の取り方</h3>
+          <p>恋愛で悩みやすい距離感を整理するヒントです。</p>
+          <a href="#">記事を見る</a>
+        </div>
+        <div class="card">
+          <h3>恋愛相性診断の見方</h3>
+          <p>相手との相性をより深く知るための方法です。</p>
+          <a href="#">記事を見る</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="danger">
+      この診断はエンターテインメント目的の簡易診断です。医学的・心理学的な診断ではありません。
+    </div>
+  </div>
+
+  <script>
+    function calculateLove() {
+      let total = 0;
+      for (let i = 1; i <= 10; i++) {
+        total += Number(document.getElementById("q" + i).value);
+      }
+
+      let resultText = "";
+      if (total <= 3) {
+        resultText = "クールで慎重な恋愛タイプ";
+      } else if (total <= 6) {
+        resultText = "バランス型の恋愛タイプ";
+      } else if (total <= 8) {
+        resultText = "情熱的で積極的な恋愛タイプ";
+      } else {
+        resultText = "一途で深い愛情を持つ恋愛タイプ";
+      }
+
+      document.getElementById("result").innerHTML = `
+        <div class="result-box">
+          <h2>診断結果</h2>
+          <p>あなたの恋愛タイプは<strong>${resultText}</strong>です。</p>
+          <p>恋愛に対して慎重な人は、相手を大事にしたい気持ちが強い傾向があります。</p>
+          <p>積極型の人は伝え方次第で関係が深まりやすくなります。</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
