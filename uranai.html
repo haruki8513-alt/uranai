@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>無料占い｜今日の運勢をチェック</title>
+<meta name="description" content="星座と血液型から今日の運勢を簡単にチェックできる無料占いです。">
+<link rel="canonical" href="https://haruki8513-alt.github.io/uranai/uranai.html">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<style>body{margin:0;background:linear-gradient(180deg,#0b0f2f,#101a44);color:#fff;font-family:system-ui,sans-serif;line-height:1.8}.wrap{max-width:720px;margin:auto;padding:24px 16px 70px}.panel,.result{padding:22px;border-radius:18px;background:rgba(255,255,255,.1);margin:18px 0}.result{background:#fff;color:#333}label{display:block;margin:14px 0 6px;font-weight:bold}select,input,button{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;font:inherit}button{margin-top:18px;border:0;background:#f4d35e;color:#4d3b00;font-weight:bold}a{color:#dfe6ff}.result h2{color:#514277}</style>
+</head><body><main class="wrap"><a href="./index.html">← トップへ戻る</a><h1>🔮 無料占い</h1><p>星座と血液型から、今日の運勢を気軽にチェックできます。</p><section class="panel"><label for="sign">星座</label><select id="sign"><option>おひつじ座</option><option>おうし座</option><option>ふたご座</option><option>かに座</option><option>しし座</option><option>おとめ座</option><option>てんびん座</option><option>さそり座</option><option>いて座</option><option>やぎ座</option><option>みずがめ座</option><option>うお座</option></select><label for="blood">血液型</label><select id="blood"><option>A</option><option>B</option><option>O</option><option>AB</option></select><button type="button" onclick="diagnose()">今日の運勢を見る</button></section><div id="result"></div><p>この占いはエンターテインメント目的の簡易占いです。</p><a href="./love.html">恋愛タイプ診断へ →</a><br><a href="./seikaku.html">無料性格診断へ →</a></main><script>function diagnose(){const luck=['最高','良い','普通','注意'];const v=luck[Math.floor(Math.random()*luck.length)];document.querySelector('#result').innerHTML='<section class="result"><h2>今日の運勢</h2><p>運勢は<strong>'+v+'</strong>です。</p><p>星座：'+document.querySelector('#sign').value+'／血液型：'+document.querySelector('#blood').value+'型</p><p>焦らず、自分のペースを大切にしましょう。</p></section>'}</script></body></html>
