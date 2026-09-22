@@ -1,33 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://haruki8513-alt.github.io/uranai/</loc>
   </url>
   <url>
-    <loc>https://example.com/privacy.html</loc>
+    <loc>https://haruki8513-alt.github.io/uranai/privacy.html</loc>
   </url>
   <url>
-    <loc>https://example.com/terms.html</loc>
+    <loc>https://haruki8513-alt.github.io/uranai/terms.html</loc>
   </url>
   <url>
-    <loc>https://example.com/contact.html</loc>
-  </url>
-  <url>
-    <loc>https://example.com/seikaku</loc>
-  </url>
-  <url>
-    <loc>https://example.com/love</loc>
-  </url>
-  <url>
-    <loc>https://example.com/work</loc>
-  </url>
-  <url>
-    <loc>https://example.com/uranai</loc>
-  </url>
-  <url>
-    <loc>https://example.com/stress</loc>
-  </url>
-  <url>
-    <loc>https://example.com/mental</loc>
+    <loc>https://haruki8513-alt.github.io/uranai/contact.html</loc>
   </url>
 </urlset>
