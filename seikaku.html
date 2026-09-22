@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>無料性格診断｜10問で自分のタイプをチェック</title>
+  <meta
+    name="description"
+    content="無料でできる性格診断。10問に答えるだけで、自分のタイプや強みを簡単にチェックできます。仕事や恋愛に活かせる診断です。"
+  />
+  <meta property="og:title" content="無料性格診断｜10問で自分のタイプをチェック" />
+  <meta property="og:description" content="無料でできる性格診断。自分の性格傾向を簡単に診断して、仕事や恋愛に活かせるヒントを確認できます。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://haruki8513-alt.github.io/uranai/seikaku.html" />
+  <meta property="og:image" content="https://haruki8513-alt.github.io/uranai/og-image.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://haruki8513-alt.github.io/uranai/seikaku.html" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      background: linear-gradient(180deg, #0b0f2f 0%, #101a44 100%);
+      color: white;
+      line-height: 1.8;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 18px 80px;
+    }
+    h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 12px;
+    }
+    .intro {
+      margin-bottom: 28px;
+      color: rgba(255,255,255,0.9);
+    }
+    .panel {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.18);
+    }
+    label {
+      display: block;
+      margin: 20px 0 8px;
+      font-weight: bold;
+    }
+    select, input {
+      width: 100%;
+      min-height: 48px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.2);
+      background: #fff;
+      color: #222;
+      padding: 10px 12px;
+      font-size: 15px;
+    }
+    button {
+      margin-top: 18px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #fff0a0 0%, #f4d35e 48%, #e7b941 100%);
+      color: #4d3b00;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .result-box {
+      margin-top: 28px;
+      background: #fff;
+      color: #333;
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 20px 35px rgba(0,0,0,0.14);
+    }
+    .result-box h2 {
+      margin-top: 0;
+      color: #514277;
+    }
+    .related {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .card {
+      background: rgba(255,255,255,0.96);
+      color: #333;
+      border-radius: 14px;
+      padding: 14px;
+      box-shadow: 0 12px 18px rgba(0,0,0,0.08);
+    }
+    .card h3 {
+      margin: 0 0 8px;
+      color: #514277;
+      font-size: 1rem;
+    }
+    .card p {
+      margin: 0 0 10px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+    .card a {
+      color: #2d57c9;
+      font-weight: bold;
+      text-decoration: underline;
+    }
+    .ad {
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px dashed rgba(255,255,255,0.2);
+      border-radius: 14px;
+      background: #fff9e7;
+      color: #4a3b00;
+      font-weight: bold;
+    }
+    .danger {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+    }
+    a {
+      color: #dfe6ff;
+    }
+    @media (max-width: 700px) {
+      .container { padding: 18px 14px 80px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>無料性格診断</h1>
+    <p class="intro">
+      10問に答えるだけで、あなたの性格タイプを簡単にチェックできます。  
+      自分の強みや苦手な面を知り、仕事や恋愛に役立てる参考にしてください。
+    </p>
+
+    <div class="panel">
+      <label for="q1">1. 休みの日は？</label>
+      <select id="q1">
+        <option value="1">家でゆっくりしたい</option>
+        <option value="2">外で遊びたい</option>
+        <option value="3">ひとりで集中したい</option>
+        <option value="4">誰かと一緒にいたい</option>
+      </select>
+
+      <label for="q2">2. 初対面の人と話すときは？</label>
+      <select id="q2">
+        <option value="1">少し緊張する</option>
+        <option value="2">普通に話せる</option>
+        <option value="3">あまり話したくない</option>
+        <option value="4">すぐ仲良くなる</option>
+      </select>
+
+      <label for="q3">3. 友達から言われることは？</label>
+      <select id="q3">
+        <option value="1">落ち着いている</option>
+        <option value="2">明るい</option>
+        <option value="3">マイペース</option>
+        <option value="4">個性的</option>
+      </select>
+
+      <label for="q4">4. 気分転換の仕方は？</label>
+      <select id="q4">
+        <option value="1">ひとりで落ち着く</option>
+        <option value="2">誰かに相談する</option>
+        <option value="3">気分転換する</option>
+        <option value="4">すぐ行動する</option>
+      </select>
+
+      <label for="q5">5. 仕事の進め方は？</label>
+      <select id="q5">
+        <option value="1">丁寧に進める</option>
+        <option value="2">バランスを大事にする</option>
+        <option value="3">自分のペースで進める</option>
+        <option value="4">積極的に進める</option>
+      </select>
+
+      <label for="q6">6. 人と話すのは？</label>
+      <select id="q6">
+        <option value="1">少し苦手</option>
+        <option value="2">普通</option>
+        <option value="3">好き</option>
+        <option value="4">かなり好き</option>
+      </select>
+
+      <label for="q7">7. 変化を嫌う？</label>
+      <select id="q7">
+        <option value="1">かなり嫌う</option>
+        <option value="2">普通</option>
+        <option value="3">大丈夫</option>
+        <option value="4">好む</option>
+      </select>
+
+      <label for="q8">8. 自分を一言で言えば？</label>
+      <select id="q8">
+        <option value="1">慎重</option>
+        <option value="2">安定</option>
+        <option value="3">自由</option>
+        <option value="4">情熱的</option>
+      </select>
+
+      <label for="q9">9. 忙しい時は？</label>
+      <select id="q9">
+        <option value="1">一つずつ丁寧に</option>
+        <option value="2">バランス重視</option>
+        <option value="3">自分のペースで</option>
+        <option value="4">勢いで進める</option>
+      </select>
+
+      <label for="q10">10. どんな環境が好き？</label>
+      <select id="q10">
+        <option value="1">落ち着いた環境</option>
+        <option value="2">普通の環境</option>
+        <option value="3">自由度が高い環境</option>
+        <option value="4">刺激がある環境</option>
+      </select>
+
+      <button type="button" onclick="calculateSeikaku()">診断する</button>
+    </div>
+
+    <div id="result"></div>
+
+    <div class="ad">
+      ここに広告枠や提携リンクを入れる
+    </div>
+
+    <div class="panel">
+      <h2>関連記事</h2>
+      <div class="related">
+        <div class="card">
+          <h3>性格診断の見方を知る</h3>
+          <p>自分の診断結果をより深く理解したい人向けの解説です。</p>
+          <a href="#">記事を見る</a>
+        </div>
+        <div class="card">
+          <h3>自分に合う仕事を見つける</h3>
+          <p>性格タイプと仕事の向き不向きを考える記事です。</p>
+          <a href="#">記事を見る</a>
+        </div>
+        <div class="card">
+          <h3>恋愛と性格の関係</h3>
+          <p>性格タイプごとの恋愛傾向を知る記事です。</p>
+          <a href="#">記事を見る</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="danger">
+      この診断はエンターテインメント目的の簡易診断です。医学的・心理学的な診断ではありません。
+    </div>
+  </div>
+
+  <script>
+    function calculateSeikaku() {
+      const values = [];
+      for (let i = 1; i <= 10; i++) {
+        values.push(Number(document.getElementById("q" + i).value));
+      }
+      const total = values.reduce((sum, v) => sum + v, 0);
+
+      let resultText = "";
+      if (total <= 15) {
+        resultText = "慎重で落ち着いたタイプ";
+      } else if (total <= 25) {
+        resultText = "安定したバランスタイプ";
+      } else if (total <= 35) {
+        resultText = "自由でマイペースなタイプ";
+      } else {
+        resultText = "情熱的で行動力のあるタイプ";
+      }
+
+      document.getElementById("result").innerHTML = `
+        <div class="result-box">
+          <h2>診断結果</h2>
+          <p>あなたのタイプは<strong>${resultText}</strong>です。</p>
+          <p>落ち着いている人は仕事や人間関係で安定感があり、自由なタイプは柔軟性が強い傾向があります。</p>
+          <p>自分の強みを活かすことで、仕事や恋愛での選択がしやすくなります。</p>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>
