@@ -1,180 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- ★これだけ残す！ -->
-  <meta name="google-site-verification" content="mBzZnpcAygXAZJhgEfLACazT5_9">
-
-  <title>無料診断アプリ｜性格診断・恋愛診断・相性診断・占い</title>
-
-  <meta
-    name="description"
-    content="無料でできる性格診断、恋愛タイプ診断、恋愛相性診断、仕事診断、ストレス診断、メンタル診断、今日の占いを楽しめる診断アプリです。"
-  />
-  <meta name="robots" content="index,follow" />
-  <meta name="theme-color" content="#0b0f2f" />
-  <link rel="canonical" href="https://haruki8513-alt.github.io/uranai/" />
-  <meta property="og:title" content="無料診断アプリ｜性格診断・恋愛診断・相性診断・占い" />
-  <meta property="og:description" content="無料でできる性格診断、恋愛タイプ診断、恋愛相性診断、仕事診断、ストレス診断、メンタル診断、今日の占いを楽しめる診断アプリです。" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://haruki8513-alt.github.io/uranai/" />
-  <meta property="og:image" content="https://haruki8513-alt.github.io/uranai/og-image.svg" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <link rel="icon" href="https://haruki8513-alt.github.io/uranai/favicon.svg" type="image/svg+xml" />
-  <style>
-    :root {
-      --gold: #f4d35e;
-      --purple: #514277;
-      --dark: #0b0f2f;
-      --text-dark: #333;
-      --ad-bg: #fff9e7;
-      --link: #2d57c9;
-    }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      overflow-x: hidden;
-      color: #fff;
-      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-      background:
-        radial-gradient(circle at 12% 12%, rgba(140,110,255,.38), transparent 28%),
-        radial-gradient(circle at 80% 85%, rgba(66,183,255,.24), transparent 32%),
-        linear-gradient(180deg, #090d2d 0%, #101a44 100%);
-    }
-
-    /* decorative layers (restored) */
-    .stars, .twinkling, .clouds {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background-size: cover;
-      background-position: center;
-    }
-
-    .stars {
-      z-index: -3; opacity: .88;
-      background-image: url("./BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png");
-    }
-
-    .twinkling {
-      z-index: -2; opacity: .45;
-      background-image: url("./twinkling.png");
-    }
-
-    .clouds {
-      z-index: -1; opacity: .22;
-      background-image: url("./clouds.png");
-    }
-
-    h1 {
-      margin: 24px 10px 12px;
-      text-align: center;
-      font-size: clamp(1.8rem, 5vw, 2.7rem);
-      letter-spacing: .08em;
-      text-shadow: 0 0 12px rgba(255,230,120,.35), 0 4px 18px rgba(0,0,0,.3);
-    }
-
-    .home-description {
-      width: min(900px, 92%);
-      margin: 14px auto 28px;
-      text-align: center;
-      color: rgba(255,255,255,.95);
-      font-size: 18px;
-      line-height: 1.8;
-    }
-
-    .card-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 14px;
-      width: min(92%, 900px);
-      margin: 20px auto 40px;
-    }
-
-    .home-card {
-      display: block;
-      width: 250px;
-      min-height: 130px;
-      padding: 22px 18px;
-      color: var(--text-dark);
-      text-align: center;
-      text-decoration: none;
-      border: 1px solid rgba(105,93,160,.18);
-      border-radius: 20px;
-      background: linear-gradient(145deg, rgba(255,255,255,.98), rgba(238,239,255,.9));
-      box-shadow: 0 12px 24px rgba(15,18,55,.2), inset 0 1px 0 rgba(255,255,255,.9);
-      transition: transform .28s ease, box-shadow .28s ease;
-    }
-
-    .home-card:hover {
-      transform: translateY(-8px) scale(1.04);
-      box-shadow: 0 20px 35px rgba(15,18,55,.30), 0 0 24px rgba(244,211,94,.2);
-    }
-
-    .home-card h3 {
-      margin: 6px 0 12px;
-      font-size: 1.18rem;
-    }
-
-    .home-card p {
-      margin: 0;
-      color: #666;
-    }
-
-    .footer-note {
-      width: min(92%, 900px);
-      margin: 20px auto 80px;
-      text-align: center;
-      color: rgba(255,255,255,.7);
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 600px) {
-      .card-list { gap: 8px; }
-      .home-card { width: calc(50% - 5px); min-height: 118px; padding: 16px 8px; border-radius: 16px; }
-      .home-card h3 { font-size: 1rem; }
-      .home-card p { font-size: .82rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>無料診断アプリ｜性格診断・恋愛診断・相性診断・占い</title>
+<meta name="description" content="無料でできる性格診断、恋愛診断、相性診断、仕事診断、ストレス診断、メンタル診断、占いを楽しめる診断アプリです。">
+<link rel="canonical" href="https://haruki8513-alt.github.io/uranai/">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="preload" href="./BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png" as="image">
+<script src="./assets/site.js" defer></script>
+<style>
+:root{--gold:#f4d35e;--purple:#514277;--dark:#0b0f2f;--text-dark:#333}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;color:#fff;font-family:"Hiragino Maru Gothic ProN","Yu Gothic",Meiryo,sans-serif;background:linear-gradient(rgba(9,13,45,.48),rgba(16,26,68,.62)),url("./BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png") center/cover fixed,radial-gradient(circle at 12% 12%,rgba(140,110,255,.18),transparent 28%),linear-gradient(180deg,#090d2d,#101a44)}
+.bg-image-ready body{ /* no-op placeholder if needed */ }
+.home-description{width:min(900px,92%);margin:14px auto 28px;text-align:center;line-height:1.8}
+.card-list{display:flex;flex-wrap:wrap;justify-content:center;gap:14px;width:min(92%,900px);margin:20px auto 40px}
+.home-card{display:block;width:250px;min-height:130px;padding:22px 18px;color:var(--text-dark);text-align:center;text-decoration:none;border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(238,239,255,.9));box-shadow:0 12px 24px rgba(15,18,55,.2)}
+.home-card h3{margin:6px 0 12px;font-size:1.18rem}
+.footer{width:100%;text-align:center;padding:24px 12px;color:rgba(255,255,255,.78);font-size:13px}
+.home{display:inline-block;margin-bottom:12px;color:#dfe6ff}
+/* reduced motion */
+.reduce-motion *{transition:none!important;animation:none!important}
+</style>
 </head>
 <body>
-  <div class="stars"></div>
-  <div class="twinkling"></div>
-  <div class="clouds"></div>
-
-  <h1>診断アプリ</h1>
-
-  <div class="home-description">
-    無料でできる性格診断・恋愛診断・仕事診断・相性診断・ストレス診断・<br>
-    メンタル診断・今日の占いを簡単に体験できます。<br>
-    1分で結果がわかるので、気になる自分や相手をチェックしてみましょう。
-  </div>
-
-  <div class="card-list">
-    <a class="home-card" href="./uranai.html"><h3>🔮 占い</h3><p>今日の運勢</p></a>
-    <a class="home-card" href="./seikaku.html"><h3>🧠 性格診断</h3><p>10問でタイプ診断</p></a>
-    <a class="home-card" href="./love.html"><h3>❤️ 恋愛タイプ診断</h3><p>恋愛の傾向</p></a>
-    <a class="home-card" href="./match.html"><h3>💑 恋愛相性診断</h3><p>相性をチェック</p></a>
-    <a class="home-card" href="./work.html"><h3>💼 仕事タイプ診断</h3><p>向いている働き方</p></a>
-    <a class="home-card" href="./friend.html"><h3>👭 友達相性診断</h3><p>友達との相性</p></a>
-    <a class="home-card" href="./stress.html"><h3>😵 ストレス診断</h3><p>今のストレス度</p></a>
-    <a class="home-card" href="./mental.html"><h3>🌙 メンタル診断</h3><p>心の状態チェック</p></a>
-  </div>
-
-  <div class="footer-note">
-    この診断はエンターテインメント目的の簡易診断です。<br>
-    医学的・心理学的な診断ではありません。<br>
-    つらい状態が続く場合は、家族・専門家や相談窓口にご相談ください。<br>
-    ※提携リンク、広告を含みます。
-  </div>
+<h1 id="site-title">診断アプリ</h1>
+<div class="home-description">無料でできる性格診断・恋愛診断・仕事診断・相性診断・ストレス診断・メンタル診断・今日の占いを簡単に体験できます。</div>
+<nav class="card-list">
+<a class="home-card" href="./uranai.html"><h3>🔮 占い</h3><p>今日の運勢</p></a>
+<a class="home-card" href="./seikaku.html"><h3>🧠 性格診断</h3><p>10問でタイプ診断</p></a>
+<a class="home-card" href="./love.html"><h3>❤️ 恋愛タイプ診断</h3><p>恋愛の傾向</p></a>
+<a class="home-card" href="./match.html"><h3>💑 恋愛相性診断</h3><p>相性をチェック</p></a>
+<a class="home-card" href="./work.html"><h3>💼 仕事タイプ診断</h3><p>向いている働き方</p></a>
+<a class="home-card" href="./friend.html"><h3>👭 友達相性診断</h3><p>友達との相性</p></a>
+<a class="home-card" href="./stress.html"><h3>😵 ストレス診断</h3><p>今のストレス度</p></a>
+<a class="home-card" href="./mental.html"><h3>🌙 メンタル診断</h3><p>心の状態チェック</p></a>
+</nav>
+<footer class="footer"><a href="./privacy.html">プライバシー</a> ・ <a href="./terms.html">利用規約</a> ・ <a href="./contact.html">お問い合わせ</a><div style="margin-top:8px;font-size:12px;color:rgba(255,255,255,.6)">この診断はエンターテインメント目的です。</div></footer>
 </body>
 </html>
