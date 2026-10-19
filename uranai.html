@@ -8,12 +8,51 @@
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="preload" href="./BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png" as="image">
 <script src="./assets/site.js" defer></script>
+<script src="./assets/result.js" defer></script>
 <style>body{margin:0;min-height:100vh;background:linear-gradient(rgba(9,13,45,.78),rgba(16,26,68,.88)),url('./BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png') center/cover fixed;color:#fff;font-family:system-ui,sans-serif;line-height:1.8}.wrap{max-width:720px;margin:auto;padding:24px 16px 70px}.panel,.result{padding:22px;border-radius:18px;background:rgba(255,255,255,.1);margin:18px 0}.result{background:#fff;color:#333}.result h2{color:#514277}label{display:block;margin:14px 0 6px;font-weight:bold}select,input,button{width:100%;box-sizing:border-box;padding:12px;border-radius:10px;font:inherit}button{margin-top:18px;border:0;background:#f4d35e;color:#4d3b00;font-weight:bold;cursor:pointer}a{color:#dfe6ff}.home{display:inline-block;margin-bottom:12px}.note{font-size:.9rem}</style>
 </head>
 <body>
 <main class="wrap"><a class="home" href="./index.html">← トップへ戻る</a><h1>🔮 無料占い</h1><p>星座と血液型から、今日の運勢を気軽にチェックできます。</p>
-<section class="panel"><label>星座<select id="sign"><option>おひつじ座</option><option>おうし座</option><option>ふたご座</option><option>かに座</option><option>しし座</option><option>おとめ座</option><option>てんびん座</option><option>さそり座</option><option>いて座</option><option>やぎ座</option><option>みずがめ座</option><option>うお座</option></select></label><label>血液型<select id="blood"><option>A</option><option>B</option><option>O</option><option>AB</option></select></label><button onclick="show()">今日の運勢を見る</button></section><div id="result"></div><p class="note">この占いはエンターテインメント目的の簡易占いです。</p></main>
+<section class="panel"><label>星座<select id="sign"><option>おひつじ座</option><option>おうし座</option><option>ふたご座</option><option>かに座</option><option>しし座</option><option>おとめ座</option><option>てんびん座</option><option>さそり座</option><option>いて座</option><option>やぎ座</option><option>みずがめ座</option><option>うお座</option></select></label><label>血液型<select id="blood"><option>A</option><option>B</option><option>O</option><option>AB</option></select></label><button id="show-btn">今日の運勢を見る</button></section><div id="result"></div><p class="note">この占いはエンターテインメント目的の簡易占いです。</p></main>
 <footer class="footer" style="text-align:center;padding:18px"><a href="./privacy.html">プライバシー</a> ・ <a href="./terms.html">利用規約</a> ・ <a href="./contact.html">お問い合わせ</a></footer>
-<script>function show(){let a=['最高','良い','普通','注意'][Math.floor(Math.random()*4)];document.querySelector('#result').innerHTML='<section class="result"><h2>今日の運勢</h2><p>運勢は<strong>'+a+'</strong>です。</p><p>'+document.querySelector('#sign').value+'・'+document.querySelector('#blood').value+'型</p></section>'}</script>
+<script>
+document.getElementById('show-btn').addEventListener('click', ()=>{
+  const labels = ['最高','良い','普通','注意'];
+  const idx = Math.floor(Math.random()*4);
+  const label = labels[idx];
+  const sign = document.getElementById('sign').value;
+  const blood = document.getElementById('blood').value;
+  const base = {
+    title: label + ' の運勢です',
+    summary: sign + '・' + blood + '型 の今日の運勢は「' + label + '」です。',
+    strengths: [],
+    cautions: [],
+    advice: [],
+    extra: 'この占いは簡易占いです。楽しんでご利用ください。'
+  };
+  if(idx===0){ // 最高
+    base.summary = '運気がとても良い日。チャンスを活かせます。';
+    base.strengths = ['新しいことに挑戦すると吉','人間関係で良い出会いがあるかも'];
+    base.cautions = ['勢いで無理をしないように注意'];
+    base.advice = ['気になることには積極的に手を出してみる','大切な連絡は今日中に済ませる'];
+  } else if(idx===1){ // 良い
+    base.summary = '全体的に安定しています。調整するとさらに良くなります。';
+    base.strengths = ['協力して物事を進めやすい','冷静さが発揮できる'];
+    base.cautions = ['小さな見落としに注意'];
+    base.advice = ['朝に1つ優先事項を決めて集中する','コミュニケーションを大切にする'];
+  } else if(idx===2){ // 普通
+    base.summary = '波がある日。無理をせず調整を。';
+    base.strengths = ['普段通りの安定感','細かい作業が得意'];
+    base.cautions = ['重要な判断は慎重に'];
+    base.advice = ['休憩を取りつつ取り組む','重要な予定は翌日に回す選択も検討'];
+  } else { // 注意
+    base.summary = '注意が必要な日です。余裕を持った行動を。';
+    base.strengths = ['困難な時も冷静に対応できる'];
+    base.cautions = ['感情的な判断に注意','疲れが出やすい'];
+    base.advice = ['大事な決断は一晩置く','休息を優先する'];
+  }
+  renderDetailedResult('#result', base);
+});
+</script>
 </body>
 </html>
