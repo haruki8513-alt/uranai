@@ -3,6 +3,7 @@
 // - add share/copy buttons to .result sections
 // - support share link generation when result JSON is available
 // - respect prefers-reduced-motion
+// - theme toggle UI (dark/light) saved to localStorage
 
 (function(){
   const BG = './BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png';
@@ -14,6 +15,23 @@
       img.onerror = ()=>res(false);
       img.src = src;
     });
+  }
+
+  // add theme styles to document
+  function injectThemeStyles(){
+    if(document.getElementById('uranai-theme-styles')) return;
+    const css = `
+      :root[data-theme='light'] body{ background: #f6f7fb; color: #222 !important; }
+      :root[data-theme='light'] .wrap{ background: transparent; }
+      :root[data-theme='light'] .home-card{ color:var(--text-dark); }
+      :root[data-theme='light'] .result{ background:#fff; color:#222 }
+      :root[data-theme='light'] button{ background:#514277; color:#fff }
+      :root[data-theme='light'] a{ color:#514277 }
+    `;
+    const s = document.createElement('style');
+    s.id = 'uranai-theme-styles';
+    s.appendChild(document.createTextNode(css));
+    document.head.appendChild(s);
   }
 
   // expose a helper to create a simple UI root for toggles if needed
@@ -29,6 +47,39 @@
       document.body.appendChild(root);
     }
     return root;
+  }
+
+  // theme handling
+  function setTheme(mode){
+    document.documentElement.setAttribute('data-theme', mode);
+    localStorage.setItem('site-theme', mode);
+  }
+  function toggleTheme(){
+    const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(cur === 'dark' ? 'light' : 'dark');
+  }
+
+  // Add a small toggle UI
+  function ensureThemeToggle(){
+    const root = ensureUIRoot();
+    if(root.querySelector('#theme-toggle')) return;
+    const btn = document.createElement('button');
+    btn.id = 'theme-toggle';
+    btn.type = 'button';
+    btn.style.padding = '8px 10px';
+    btn.style.borderRadius = '8px';
+    btn.style.border = 'none';
+    btn.style.cursor = 'pointer';
+    btn.style.background = 'rgba(255,255,255,0.06)';
+    btn.style.color = '#fff';
+    btn.style.fontWeight = '600';
+    btn.textContent = 'テーマ';
+    btn.title = 'テーマ切替 (ダーク/ライト)';
+    btn.onclick = ()=>{ toggleTheme(); btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? 'テーマ:ダーク' : 'テーマ:ライト'; };
+    root.appendChild(btn);
+
+    // initialize label
+    btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? 'テーマ:ダーク' : 'テーマ:ライト';
   }
 
   // add loaded class when bg ready
@@ -85,18 +136,18 @@
       const addShareLink = ()=>{
         const json = section.dataset.resultJson;
         if(!json) return;
+        if(toolbar.querySelector('.share-link-btn')) return;
         const linkBtn = document.createElement('button');
         linkBtn.type = 'button';
+        linkBtn.className = 'share-link-btn';
         linkBtn.textContent = '共有リンク';
         linkBtn.setAttribute('aria-label','結果をURLで共有');
         linkBtn.onclick = ()=>{
-          // prefer using window.createShareURL if provided by result script
           let url = '';
           try{
             if(window.createShareURL) url = window.createShareURL(JSON.parse(json));
           }catch(e){ url = ''; }
           if(!url){
-            // fallback: encode the text summary
             const encoded = encodeURIComponent(section.dataset.resultText || section.innerText || section.textContent);
             url = location.origin + location.pathname + '?text=' + encoded;
           }
@@ -132,11 +183,17 @@
 
   // initial run
   document.addEventListener('DOMContentLoaded', ()=>{
+    injectThemeStyles();
+    ensureThemeToggle();
     enhanceResults();
     // small tweak: reduce motion
     if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
       document.documentElement.classList.add('reduce-motion');
     }
+    // apply saved theme or prefers
+    const saved = localStorage.getItem('site-theme');
+    if(saved) setTheme(saved);
+    else setTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
   });
 
   // expose ensureUIRoot for future use
