@@ -30,6 +30,27 @@
     return parts.join('\n');
   }
 
+  function createShareURL(obj){
+    try{
+      const json = JSON.stringify(obj);
+      const encoded = btoa(encodeURIComponent(json));
+      return location.origin + location.pathname + '?result=' + encoded;
+    }catch(e){
+      return '';
+    }
+  }
+
+  function decodeShareParam(param){
+    try{
+      const decoded = decodeURIComponent(atob(param));
+      return JSON.parse(decoded);
+    }catch(e){
+      return null;
+    }
+  }
+
+  window.createShareURL = createShareURL;
+
   window.renderDetailedResult = function(containerSelector, obj){
     try{
       const container = typeof containerSelector === 'string' ? document.querySelector(containerSelector) : containerSelector;
@@ -39,8 +60,30 @@
       const section = container.querySelector('.result');
       if(section){
         section.dataset.resultText = buildResultText(obj);
+        try{ section.dataset.resultJson = JSON.stringify(obj); }catch(e){}
       }
     }catch(e){console.error(e)}
   };
+
+  // On load, check for ?result= encoded payload and render it if present
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const params = new URLSearchParams(location.search);
+    const r = params.get('result');
+    if(r){
+      const obj = decodeShareParam(r);
+      if(obj){
+        // find #result or create one
+        let container = document.querySelector('#result');
+        if(!container){
+          container = document.createElement('div');
+          container.id = 'result';
+          document.body.appendChild(container);
+        }
+        renderDetailedResult(container, obj);
+        // scroll into view
+        setTimeout(()=>{ container.scrollIntoView({behavior:'smooth'}); }, 200);
+      }
+    }
+  });
 
 })();
