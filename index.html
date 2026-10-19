@@ -24,6 +24,15 @@
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="icon" href="https://haruki8513-alt.github.io/uranai/favicon.svg" type="image/svg+xml" />
   <style>
+    :root {
+      --gold: #f4d35e;
+      --purple: #514277;
+      --dark: #0b0f2f;
+      --text-dark: #333;
+      --ad-bg: #fff9e7;
+      --link: #2d57c9;
+    }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -32,8 +41,38 @@
       overflow-x: hidden;
       color: #fff;
       font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
-      background: radial-gradient(circle at 12% 12%, rgba(140,110,255,.38), transparent 28%), radial-gradient(circle at 80% 85%, rgba(66,183,255,.24), transparent 32%), linear-gradient(180deg, #090d2d 0%, #101a44 100%);
+      background:
+        radial-gradient(circle at 12% 12%, rgba(140,110,255,.38), transparent 28%),
+        radial-gradient(circle at 80% 85%, rgba(66,183,255,.24), transparent 32%),
+        linear-gradient(180deg, #090d2d 0%, #101a44 100%);
     }
+
+    /* decorative layers (restored) */
+    .stars, .twinkling, .clouds {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .stars {
+      z-index: -3; opacity: .88;
+      background-image: url("./BCO.755a2eff-b3fc-4a1d-aa77-5dcb6907f237.png");
+    }
+
+    .twinkling {
+      z-index: -2; opacity: .45;
+      background-image: url("./twinkling.png");
+    }
+
+    .clouds {
+      z-index: -1; opacity: .22;
+      background-image: url("./clouds.png");
+    }
+
     h1 {
       margin: 24px 10px 12px;
       text-align: center;
@@ -41,6 +80,7 @@
       letter-spacing: .08em;
       text-shadow: 0 0 12px rgba(255,230,120,.35), 0 4px 18px rgba(0,0,0,.3);
     }
+
     .home-description {
       width: min(900px, 92%);
       margin: 14px auto 28px;
@@ -49,6 +89,7 @@
       font-size: 18px;
       line-height: 1.8;
     }
+
     .card-list {
       display: flex;
       flex-wrap: wrap;
@@ -57,12 +98,13 @@
       width: min(92%, 900px);
       margin: 20px auto 40px;
     }
+
     .home-card {
       display: block;
       width: 250px;
       min-height: 130px;
       padding: 22px 18px;
-      color: #333;
+      color: var(--text-dark);
       text-align: center;
       text-decoration: none;
       border: 1px solid rgba(105,93,160,.18);
@@ -71,18 +113,22 @@
       box-shadow: 0 12px 24px rgba(15,18,55,.2), inset 0 1px 0 rgba(255,255,255,.9);
       transition: transform .28s ease, box-shadow .28s ease;
     }
+
     .home-card:hover {
       transform: translateY(-8px) scale(1.04);
       box-shadow: 0 20px 35px rgba(15,18,55,.30), 0 0 24px rgba(244,211,94,.2);
     }
+
     .home-card h3 {
       margin: 6px 0 12px;
       font-size: 1.18rem;
     }
+
     .home-card p {
       margin: 0;
       color: #666;
     }
+
     .footer-note {
       width: min(92%, 900px);
       margin: 20px auto 80px;
@@ -91,6 +137,7 @@
       font-size: 12px;
       line-height: 1.7;
     }
+
     @media (max-width: 600px) {
       .card-list { gap: 8px; }
       .home-card { width: calc(50% - 5px); min-height: 118px; padding: 16px 8px; border-radius: 16px; }
@@ -100,6 +147,10 @@
   </style>
 </head>
 <body>
+  <div class="stars"></div>
+  <div class="twinkling"></div>
+  <div class="clouds"></div>
+
   <h1>診断アプリ</h1>
 
   <div class="home-description">
