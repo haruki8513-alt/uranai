@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>仕事タイプ診断｜キャリア診断</title>
+  <meta name="description" content="仕事や働き方の傾向を簡単に診断できる無料のキャリア診断です。" />
+  <link rel="canonical" href="https://haruki8513-alt.github.io/uranai/career.html" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="./manifest.json" />
+  <script src="./assets/site.js" defer></script>
+  <script src="./assets/result.js" defer></script>
+  <style>
+    :root {
+      --bg1: #0b0f2f;
+      --bg2: #101a44;
+      --panel: rgba(255,255,255,.08);
+      --panel-solid: rgba(255,255,255,.92);
+      --text: #f8fbff;
+      --muted: rgba(255,255,255,.78);
+      --accent: #f4d35e;
+      --accent-2: #7bdff2;
+      --shadow: rgba(0,0,0,.2);
+      --card: rgba(255,255,255,.12);
+      --button: linear-gradient(135deg, #fff0a0 0%, #f4d35e 48%, #e7b941 100%);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      background: linear-gradient(180deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      line-height: 1.8;
+    }
+    .wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 24px 16px 80px;
+    }
+    a.home {
+      display: inline-block;
+      color: #dfe6ff;
+      text-decoration: none;
+      margin-bottom: 18px;
+    }
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      text-align: center;
+    }
+    .intro {
+      margin: 0 auto 20px;
+      max-width: 700px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 1.05rem;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      box-shadow: 0 20px 45px var(--shadow);
+      padding: 20px;
+    }
+    .question {
+      margin-bottom: 18px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .question h3 {
+      margin: 0 0 10px;
+      font-size: 1.02rem;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    .options label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,255,255,.03);
+      padding: 12px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      color: var(--text);
+    }
+    .options input {
+      accent-color: var(--accent);
+    }
+    .submit-wrap {
+      text-align: center;
+      margin-top: 20px;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      cursor: pointer;
+      background: var(--button);
+      color: #3d2d00;
+      font: inherit;
+      font-weight: 700;
+      padding: 14px 22px;
+    }
+    .result {
+      margin-top: 28px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      padding: 20px;
+    }
+    .result h2 {
+      margin-top: 0;
+      font-size: 1.6rem;
+    }
+    .summary {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .footer {
+      text-align: center;
+      padding: 18px 0 8px;
+      color: rgba(255,255,255,.7);
+      font-size: 0.92rem;
+    }
+    .footer a {
+      color: #dfe6ff;
+      text-decoration: none;
+    }
+    @media (max-width: 600px) {
+      .panel { padding: 14px; }
+      .question { padding: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="home" href="./index.html">← トップへ戻る</a>
+    <h1>💼 仕事タイプ診断</h1>
+    <p class="intro">自分の働き方や価値観を知って、向いている仕事のタイプをチェックしてみましょう。</p>
+
+    <form id="career-form" class="panel">
+      <div class="question">
+        <h3>1. 仕事を選ぶとき、何を重視しますか？</h3>
+        <div class="options">
+          <label><input type="radio" name="q1" value="plan" required /> 安定して続けられる環境</label>
+          <label><input type="radio" name="q1" value="action" /> 成果がすぐに出る仕事</label>
+          <label><input type="radio" name="q1" value="team" /> 人と関わる仕事</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>2. 忙しい時に自分はどうしますか？</h3>
+        <div class="options">
+          <label><input type="radio" name="q2" value="plan" required /> 計画を立てて進める</label>
+          <label><input type="radio" name="q2" value="action" /> とにかく進めてしまう</label>
+          <label><input type="radio" name="q2" value="team" /> 周囲と相談しながら進める</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>3. 仕事で一番嬉しい瞬間は？</h3>
+        <div class="options">
+          <label><input type="radio" name="q3" value="plan" required /> 完璧に仕上げた時</label>
+          <label><input type="radio" name="q3" value="action" /> 目に見える成果が出た時</label>
+          <label><input type="radio" name="q3" value="team" /> 人に感謝された時</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>4. 仕事中の集中のしかたは？</h3>
+        <div class="options">
+          <label><input type="radio" name="q4" value="plan" required /> ルールや手順を守る</label>
+          <label><input type="radio" name="q4" value="action" /> 反応が早く動ける</label>
+          <label><input type="radio" name="q4" value="team" /> 仲間と密にコミュニケーションする</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>5. 新しい仕事を任されたら？</h3>
+        <div class="options">
+          <label><input type="radio" name="q5" value="plan" required /> まず計画を立てる</label>
+          <label><input type="radio" name="q5" value="action" /> まず始めてから調整する</label>
+          <label><input type="radio" name="q5" value="team" /> 相談しながら進める</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>6. 仕事で大事にしたいものは？</h3>
+        <div class="options">
+          <label><input type="radio" name="q6" value="plan" required /> 安定と継続</label>
+          <label><input type="radio" name="q6" value="action" /> 成功と達成感</label>
+          <label><input type="radio" name="q6" value="team" /> 信頼と協力</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>7. 退屈な作業をこなすときは？</h3>
+        <div class="options">
+          <label><input type="radio" name="q7" value="plan" required /> 手順を整えながら進める</label>
+          <label><input type="radio" name="q7" value="action" /> 最短で終わらせる</label>
+          <label><input type="radio" name="q7" value="team" /> 周りと一緒に進められるなら楽</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <h3>8. 仕事で最も大切にしたいのは？</h3>
+        <div class="options">
+          <label><input type="radio" name="q8" value="plan" required /> 仕組みと整備</label>
+          <label><input type="radio" name="q8" value="action" /> 目標達成と成長</label>
+          <label><input type="radio" name="q8" value="team" /> 人間関係と協働</label>
+        </div>
+      </div>
+
+      <div class="submit-wrap">
+        <button type="submit">診断する</button>
+      </div>
+    </form>
+
+    <div id="result" class="result" aria-live="polite"></div>
+
+    <footer class="footer">
+      <a href="./privacy.html">プライバシー</a> ・
+      <a href="./terms.html">利用規約</a> ・
+      <a href="./contact.html">お問い合わせ</a>
+    </footer>
+  </main>
+
+  <script>
+    const form = document.getElementById('career-form');
+    const resultBox = document.getElementById('result');
+
+    function scoreAnswers(formData) {
+      const score = { plan: 0, action: 0, team: 0 };
+      for (const [key, value] of formData.entries()) {
+        if (score[value] !== undefined) score[value] += 1;
+      }
+      return score;
+    }
+
+    function buildCareerResult(score) {
+      const entries = Object.entries(score).sort((a, b) => b[1] - a[1]);
+      const top = entries[0][0];
+      let title = 'バランス型キャリア';
+      let summary = 'あなたは全体を見ながら、安定と成長の両立を大切にするタイプです。';
+      let strengths = ['自分のペースを保ちやすい', '周囲との協調を意識できる', '計画性と実行力の両方を持っている'];
+      let cautions = ['一人で抱え込みやすい', '細部にこだわりすぎる場合がある'];
+      let advice = ['不安な部分を小さく分解して進める', '一人で完結しようとせず、相談を増やす'];
+
+      if (top === 'plan') {
+        title = '計画型キャリア';
+        summary = 'あなたは安定と丁寧さを重視するタイプ。手順や仕組みを整える力が高いです。';
+        strengths = ['段取りが上手', '継続しやすい', '品質にこだわれる'];
+        cautions = ['変化への対応が遅れることがある', '細かい調整に時間がかかる'];
+        advice = ['新しい挑戦を少しずつ導入する', '進捗を可視化してモチベーションを保つ'];
+      } else if (top === 'action') {
+        title = '実行型キャリア';
+        summary = 'あなたは結果を出すことに価値を感じるタイプ。スピード感と行動力が強みです。';
+        strengths = ['行動が早い', '成果が出やすい', '新しいことに挑戦しやすい'];
+        cautions = ['周囲の意見を聞き漏らすことがある', '準備不足になりやすい'];
+        advice = ['一歩踏み出す前に目標を強めに決める', '計画を少し入れてミスを減らす'];
+      } else if (top === 'team') {
+        title = '協働型キャリア';
+        summary = 'あなたは人と関わることをエネルギーにするタイプ。信頼関係と協力が大事です。';
+        strengths = ['コミュニケーションが上手', 'チームをまとめやすい', '信頼を築きやすい'];
+        cautions = ['人や場の空気に左右されやすい', '自分の意思を伝えきれないことがある'];
+        advice = ['自分の価値観を伝える機会を増やす', '一緒に進める相手の役割を明確にする'];
+      }
+
+      const obj = {
+        title,
+        summary,
+        strengths,
+        cautions,
+        advice,
+        extra: 'この診断は簡易診断です。仕事の向き不向きは環境や経験によって変わります。'
+      };
+
+      return obj;
+    }
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const data = new FormData(form);
+      const score = scoreAnswers(data);
+      const result = buildCareerResult(score);
+      renderDetailedResult(resultBox, result);
+
+      if (window.uranaiStorage && typeof window.uranaiStorage.saveResult === 'function') {
+        window.uranaiStorage.saveResult({
+          type: 'career',
+          title: result.title,
+          summary: result.summary,
+          createdAt: new Date().toISOString()
+        });
+      }
+    });
+  </script>
+</body>
+</html>

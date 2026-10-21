@@ -1,0 +1,17 @@
+{
+  "name": "無料診断アプリ",
+  "short_name": "uranai",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b0f2f",
+  "theme_color": "#0b0f2f",
+  "description": "無料でできる占いと診断アプリ",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
